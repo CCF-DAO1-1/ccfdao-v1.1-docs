@@ -1,3 +1,35 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+/* Custom brand color for headings and bold text */
+:root {
+  --brand-primary: #00CC9B;
+}
+
+/* Apply brand color to all headings in documentation */
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  color: var(--brand-primary);
+}
+
+/* Apply brand color to bold text in documentation */
+article strong,
+article b {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+/* Also apply to page title */
+.nd-docs-title {
+  color: var(--brand-primary);
+}
+
+/* Sidebar active item */
+[data-active='true'] {
+  color: var(--brand-primary) !important;
+}
