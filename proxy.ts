@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { i18n } from './lib/i18n';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the pathname is missing a locale
