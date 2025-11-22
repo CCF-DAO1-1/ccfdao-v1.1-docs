@@ -7,5 +7,6 @@ export function baseOptions(): BaseLayoutProps {
       title: 'CKB Community Fund DAO 1.1',
     },
     i18n,
+    githubUrl: 'https://github.com/ccf-dao1-1/ccfdao-v1.1-docs'
   };
 }

@@ -7,6 +7,25 @@
   --brand-primary: #00CC9B;
 }
 
+/* Dark mode customization */
+.dark {
+  /* 自定义暗黑模式背景色 */
+  --fd-background: 10 10 10; /* 深黑色背景 */
+  --fd-card: 20 20 20; /* 卡片背景 */
+  --fd-popover: 20 20 20; /* 弹出层背景 */
+  
+  /* 自定义暗黑模式文字颜色 */
+  --fd-foreground: 250 250 250; /* 主文字颜色 */
+  --fd-muted-foreground: 160 160 160; /* 次要文字颜色 */
+  
+  /* 自定义暗黑模式边框颜色 */
+  --fd-border: 40 40 40; /* 边框颜色 */
+  
+  /* 自定义暗黑模式主题色（可选） */
+  --fd-primary: 0 204 155; /* 使用品牌色 #00CC9B */
+  --fd-primary-foreground: 255 255 255;
+}
+
 /* Apply brand color to all headings in documentation */
 article h1,
 article h2,

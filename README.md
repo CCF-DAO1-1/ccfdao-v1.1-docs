@@ -43,3 +43,39 @@ resources:
   features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
+
+## Public Assets and Favicon
+
+This project uses the `public/` directory for static assets that are served
+directly by Next.js.
+
+### Favicon and App Icons
+
+To customize the application icon, place your files inside the `public/`
+directory. Common options:
+
+- `public/favicon.ico` – classic ICO format (recommended size: 32x32 or 16x16)
+- `public/icon.png` – PNG format (recommended size: 32x32)
+- `public/icon.svg` – SVG format (scalable vector)
+
+The simplest way is to name your main icon `favicon.ico` and put it in the
+`public/` directory.
+
+You can generate favicons using online tools such as:
+
+- https://favicon.io/
+- https://realfavicongenerator.net/
+
+### Example Structure
+
+```text
+public/
+  favicon.ico     # main favicon
+  icon.png        # PNG fallback (optional)
+  apple-icon.png  # Apple touch icon (optional)
+```
+
+Next.js will automatically serve these files at the root URLs, for example:
+
+- `http://localhost:3000/favicon.ico`
+- `http://localhost:3000/icon.png`
