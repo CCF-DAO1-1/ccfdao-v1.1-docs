@@ -1,0 +1,10 @@
+{
+  "title": "Developer Docs",
+  "root": true,
+  "icon": "Code",
+  "pages": [
+    "index",
+    "---Architecture",
+    "architecture"
+  ]
+}

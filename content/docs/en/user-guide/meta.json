@@ -1,0 +1,14 @@
+{
+  "title": "User Guide",
+  "root": true,
+  "icon": "Users",
+  "pages": [
+    "index",
+    "---Getting Started",
+    "getting-started",
+    "---Core Functions",
+    "core-functions",
+    "---FAQ",
+    "faq"
+  ]
+}

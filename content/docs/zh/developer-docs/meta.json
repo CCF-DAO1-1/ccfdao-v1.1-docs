@@ -1,0 +1,10 @@
+{
+  "title": "开发者文档",
+  "root": true,
+  "icon": "Code",
+  "pages": [
+    "index",
+    "---架构",
+    "architecture"
+  ]
+}

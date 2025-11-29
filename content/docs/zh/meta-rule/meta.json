@@ -1,0 +1,13 @@
+{
+  "title": "元规则",
+  "root": true,
+  "icon": "Scale",
+  "pages": [
+    "index",
+    "governance-framework",
+    "proposal-lifecycle",
+    "voting-mechanism",
+    "fund-management",
+    "amendment-process"
+  ]
+}

@@ -5,7 +5,6 @@ export default async function HomePage(props: PageProps<'/[lang]'>) {
   const params = await props.params;
   const { lang } = params;
 
-  // 直接重定向到文档页面
   redirect(`/${lang}/docs`);
 }
 

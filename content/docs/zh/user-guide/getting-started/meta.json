@@ -1,0 +1,9 @@
+{
+  "title": "入门",
+  "pages": [
+    "wallet-setup",
+    "acquiring-ckb",
+    "deposit-nervos-dao",
+    "register-web5-did"
+  ]
+}

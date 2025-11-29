@@ -1,0 +1,11 @@
+{
+  "title": "概述",
+  "root": true,
+  "icon": "BookOpen",
+  "pages": [
+    "index",
+    "introduction",
+    "why-dao-v1-1",
+    "quick-start"
+  ]
+}

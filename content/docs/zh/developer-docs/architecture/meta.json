@@ -1,0 +1,8 @@
+{
+  "title": "架构",
+  "pages": [
+    "technical-overview",
+    "smart-contracts",
+    "off-chain-services"
+  ]
+}

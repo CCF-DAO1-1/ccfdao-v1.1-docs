@@ -9,7 +9,23 @@ export default async function Layout({
   const { lang } = await params;
   
   return (
-    <DocsLayout tree={source.pageTree[lang]} {...baseOptions()}>
+    <DocsLayout 
+      tree={source.pageTree[lang]} 
+      sidebar={{
+        tabs: {
+          transform(option, node) {
+            const meta = source.getNodeMeta(node);
+            if (!meta) return option;
+
+            return {
+              ...option,
+              icon: node.icon,
+            };
+          },
+        },
+      }}
+      {...baseOptions()}
+    >
       {children}
     </DocsLayout>
   );

@@ -1,4 +1,9 @@
 {
   "title": "文档",
-  "pages": ["index", "getting-started"]
+  "pages": [
+    "overview",
+    "user-guide",
+    "developer-docs",
+    "meta-rule"
+  ]
 }

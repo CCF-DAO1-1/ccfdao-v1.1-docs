@@ -1,81 +1,80 @@
-# ccfdao-v1.1-docs
+# CCF DAO v1.1 Documentation
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+[中文文档](./README_ZH.md)
 
-Run development server:
+A comprehensive, multilingual documentation site for CKB Community Fund DAO(CCF DAO) v1.1, featuring developer guides, user manuals, and protocol specifications.
+
+## Features
+
+- **Multilingual Support** - Full documentation in English and Chinese
+- **Modern Tech Stack** - Built with Next.js 15 and Fumadocs
+- **Full-text Search** - Fast and accurate documentation search
+- **Responsive Design** - Optimized for all devices
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation and Development
 
 ```bash
-npm run dev
-# or
+# Clone the repository
+git clone https://github.com/ccf-dao1-1/ccfdao-v1.1-docs.git
+cd ccfdao-v1.1-docs
+
+# Install dependencies
+pnpm install
+
+# Start development server
 pnpm dev
-# or
-yarn dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Explore
+### Build for Production
 
-In the project, you can see:
-
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
-
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
-
-### Fumadocs MDX
-
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
-
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
-
-## Public Assets and Favicon
-
-This project uses the `public/` directory for static assets that are served
-directly by Next.js.
-
-### Favicon and App Icons
-
-To customize the application icon, place your files inside the `public/`
-directory. Common options:
-
-- `public/favicon.ico` – classic ICO format (recommended size: 32x32 or 16x16)
-- `public/icon.png` – PNG format (recommended size: 32x32)
-- `public/icon.svg` – SVG format (scalable vector)
-
-The simplest way is to name your main icon `favicon.ico` and put it in the
-`public/` directory.
-
-You can generate favicons using online tools such as:
-
-- https://favicon.io/
-- https://realfavicongenerator.net/
-
-### Example Structure
-
-```text
-public/
-  favicon.ico     # main favicon
-  icon.png        # PNG fallback (optional)
-  apple-icon.png  # Apple touch icon (optional)
+```bash
+pnpm build
+pnpm start
 ```
 
-Next.js will automatically serve these files at the root URLs, for example:
+## Project Structure
 
-- `http://localhost:3000/favicon.ico`
-- `http://localhost:3000/icon.png`
+```
+├── app/                    # Next.js app directory
+│   └── [lang]/             # Internationalized routes
+│       └── docs/           # Documentation pages
+├── content/docs/           # Documentation content (MDX)
+│   ├── en/                 # English documentation
+│   └── zh/                 # Chinese documentation
+├── components/             # React components
+├── lib/                    # Utility functions
+└── public/                 # Static assets
+```
+
+## Documentation
+
+The documentation is organized into the following sections:
+
+- **Overview** - Introduction to CCF DAO
+- **User Guide** - How to participate in CCF DAO
+- **Meta Rules** - Governance rules and voting mechanisms
+- **Developer Docs** - Technical documentation for developers
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) - React framework
+- [Fumadocs](https://fumadocs.dev/) - Documentation framework
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [MDX](https://mdxjs.com/) - Markdown with JSX
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).

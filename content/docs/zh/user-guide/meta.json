@@ -1,0 +1,14 @@
+{
+  "title": "用户指南",
+  "root": true,
+  "icon": "Users",
+  "pages": [
+    "index",
+    "---入门",
+    "getting-started",
+    "---核心功能",
+    "core-functions",
+    "---常见问题",
+    "faq"
+  ]
+}
