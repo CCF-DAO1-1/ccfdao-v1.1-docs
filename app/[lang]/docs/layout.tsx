@@ -19,7 +19,11 @@ export default async function Layout({
 
             return {
               ...option,
-              icon: node.icon,
+              icon: (  
+                <div className="[&_svg]:size-4">  
+                  {node.icon}  
+                </div>  
+              ),  
             };
           },
         },

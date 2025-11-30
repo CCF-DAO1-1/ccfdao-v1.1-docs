@@ -1,5 +1,6 @@
 {
   "title": "Overview",
+  "description": "Background, design philosophy, and core features of CCF DAO v1.1",
   "root": true,
   "icon": "BookOpen",
   "pages": [

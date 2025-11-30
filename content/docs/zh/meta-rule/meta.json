@@ -1,5 +1,6 @@
 {
   "title": "元规则",
+  "description": "DAO 治理框架、提案流程与投票机制的核心规则",
   "root": true,
   "icon": "Scale",
   "pages": [

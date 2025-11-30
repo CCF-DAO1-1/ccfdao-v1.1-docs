@@ -1,5 +1,6 @@
 {
   "title": "概述",
+  "description": "了解 CCF DAO v1.1 的背景、设计理念与核心特性",
   "root": true,
   "icon": "BookOpen",
   "pages": [

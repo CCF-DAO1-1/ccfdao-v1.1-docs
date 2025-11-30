@@ -1,5 +1,6 @@
 {
   "title": "Meta Rule",
+  "description": "Core rules for governance framework, proposals, and voting mechanisms",
   "root": true,
   "icon": "Scale",
   "pages": [

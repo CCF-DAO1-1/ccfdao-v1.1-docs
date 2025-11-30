@@ -1,5 +1,6 @@
 {
   "title": "用户指南",
+  "description": "面向普通用户的操作指南与常见问题解答",
   "root": true,
   "icon": "Users",
   "pages": [
