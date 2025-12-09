@@ -5,7 +5,7 @@
   "icon": "Code",
   "pages": [
     "index",
-    "---架构",
+    "---核心组件",
     "architecture"
   ]
 }

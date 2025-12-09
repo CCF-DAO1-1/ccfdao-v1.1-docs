@@ -2,7 +2,7 @@
   "title": "Architecture",
   "pages": [
     "technical-overview",
-    "smart-contracts",
-    "off-chain-services"
+    "address-binding",
+    "vote"
   ]
 }

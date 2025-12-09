@@ -1,8 +1,8 @@
 {
-  "title": "架构",
+  "title": "核心组件",
   "pages": [
     "technical-overview",
-    "smart-contracts",
-    "off-chain-services"
+    "address-binding",
+    "vote"
   ]
 }
