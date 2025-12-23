@@ -1,27 +1,83 @@
 ---
 title: Governance Framework
-description: Overview of the DAO governance structure and principles
+description: DAO governance structure, scope and general rules
 ---
 
-## Governance Framework
+## Governance Process Overview
 
-> **Note**: This page is under construction. Content will be added soon.
+To achieve the goals of DAO v1.1, we propose a new set of governance rules and processes. Building on v1.0, it integrates the role of DAO Stewards and optimizes the entire process from proposal deliberation to execution oversight. All processes are completed on the new Web5 governance platform.
 
-Overview of the DAO governance structure and principles
+```mermaid
+flowchart LR
+    subgraph Phase1 ["Community Deliberation (21 days)"]
+        direction TB
+        A[Proposal Submission<br/>Web5 Platform]
+        A --> C[Q&A Sessions ≥1]
+        A --> D[Weekly Summary Sync]
+        A --> E[Proposer Refines Content]
+        C --> F{21 Days Expired<br/>Proposer Decides}
+        D --> F
+        E --> F
+    end
+    
+    subgraph Phase2 ["Project Voting (7 days)"]
+        direction TB
+        G[Check<br/>≥100,000 CKB] 
+        G -->|Budget Proposal| H{Approval ≥51%<br/>Participation ≥3x Budget}
+        G -->|Meta-rule| K{Approval ≥67%<br/>Participation ≥185M}
+    end
+    
+    subgraph Phase3 ["Execution Oversight"]
+        direction TB
+        Note1["Optimistic Governance: Default pass,<br/>can veto, balancing efficiency & oversight"]
+        L[Project Startup Funding] --> M{More<br/>Milestones?}
+        M -->|Yes| N[Verification Report or<br/>Extension Report (30D)]
+        N --> O{Quick Vote · 3 days<br/>Default Pass}
+        O -->|Pass| Q[Funding Approved]
+        Q --> M
+        O -->|Reject| R[Funds Frozen<br/>48h Emergency Meeting]
+        M -->|No| END2[Project Complete<br/>Closing Report]
+    end
+    
+    subgraph Crisis ["Crisis Handling"]
+        direction TB
+        Note2["Pessimistic Governance: Default reject,<br/>can approve, project must regain trust"]
+        
+        R --> T{Review Vote · 7 days}
+        T -->|Terminate| U[Project Terminated<br/>Funds Returned]
+        T -->|Continue| V[Resume Project]
+        T -->|Failed<br/>30-day Rectification| Y{Final Decision<br/>7 days · Default Reject}
+        Y -->|Approve Rectification| V
+        Y -->|Reject Rectification| U
+    end
+    
+    %% Main flow connections
+    F -->|Enter Voting| G
+    F -->|Abandon| END1[Process Ended]
+    H -->|Pass| L
+    K -->|Pass| L
+    H -->|Not Passed| END1
+    K -->|Not Passed| END1
+    V --> M
+    
+    %% Force layout alignment
+    Phase1 ~~~ Phase2
+    Phase2 ~~~ Phase3
+    Phase3 ~~~ Crisis
+```
 
-## Coming Soon
+---
 
-This section will include:
+## Governance Scope
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+Same as DAO v1.0, governance covers two types of matters:
 
-## Need Help?
+- Making decisions on budget requests for ecosystem development projects.
+- Making decisions on modifications to the DAO's governance meta-rules.
 
-If you have questions about this topic, please:
+---
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+## General Rules
+
+- **No Proxy Proposals:** All proposals must be submitted by the project lead using their `did:ckb` identity.
+- **No Incentivized Voting:** Any form of airdrops or asset incentives in exchange for votes is prohibited.

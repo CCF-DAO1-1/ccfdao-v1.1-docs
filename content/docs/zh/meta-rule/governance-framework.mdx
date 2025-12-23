@@ -1,27 +1,83 @@
 ---
 title: 治理框架
-description: DAO 治理结构和原则概述
+description: DAO 治理结构、范围和通用规则
 ---
 
-## 治理框架
+## 治理流程概览
 
-> **Note**: This page is under construction. Content will be added soon.
+为实现 DAO v1.1 的目标，我们提议一套全新的治理规则与流程。它在 v1.0 的基础上，整合了 DAO 物业的角色，并对从提案审议到执行监督的全过程进行了优化。所有流程均在全新的 Web5 治理平台上完成。
 
-DAO 治理结构和原则概述
+```mermaid
+flowchart LR
+    subgraph Phase1 ["社区审议 (21天)"]
+        direction TB
+        A[提案提交<br/>Web5平台]
+        A --> C[质询会≥1场]
+        A --> D[每周总结同步]
+        A --> E[提案人修缮内容]
+        C --> F{21天期满<br/>提案人决定}
+        D --> F
+        E --> F
+    end
+    
+    subgraph Phase2 ["立项投票 (7天)"]
+        direction TB
+        G[检查<br/>≥100,000 CKB] 
+        G -->|预算提案| H{赞成≥51%<br/>参投≥预算3倍}
+        G -->|元规则| K{赞成≥67%<br/>参投≥1.85亿}
+    end
+    
+    subgraph Phase3 ["执行监督"]
+        direction TB
+        Note1["乐观治理: 默认通过，可以<br/>否决，平衡效率与监督"]
+        L[项目启动拨款] --> M{还有<br/>里程碑?}
+        M -->|是| N[核查报告 or<br/>延期报告（30D）]
+        N --> O{快速投票·3天<br/>默认通过}
+        O -->|通过| Q[拨款通过]
+        Q --> M
+        O -->|反对| R[资金冻结<br/>48h紧急会议]
+        M -->|否| END2[项目完成<br/>结项报告]
+    end
+    
+    subgraph Crisis ["危机处理"]
+        direction TB
+        Note2["悲观治理: 默认反对，可以<br/>批准，项目方须主动重获信任"]
+        
+        R --> T{复核投票·7天}
+        T -->|终止| U[项目终止<br/>资金退还]
+        T -->|继续| V[恢复项目]
+        T -->|流产<br/>30天整改| Y{最终裁决<br/>7天·默认反对}
+        Y -->|批准整改| V
+        Y -->|反对整改| U
+    end
+    
+    %% 主流程连接
+    F -->|进入投票| G
+    F -->|放弃| END1[流程结束]
+    H -->|通过| L
+    K -->|通过| L
+    H -->|未通过| END1
+    K -->|未通过| END1
+    V --> M
+    
+    %% 强制布局对齐
+    Phase1 ~~~ Phase2
+    Phase2 ~~~ Phase3
+    Phase3 ~~~ Crisis
+```
 
-## Coming Soon
+---
 
-This section will include:
+## 治理范围
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+与 DAO v1.0 相同，治理两类事务：
 
-## Need Help?
+- 对生态建设项目的预算申请进行决策。
+- 对 DAO 的治理元规则进行修改决策。
 
-If you have questions about this topic, please:
+---
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+## 通用规则
+
+- **禁止代理提案：** 所有提案必须由项目负责人以其 `did:ckb` 身份提交。
+- **禁止激励投票：** 禁止任何形式的空投或资产激励来换取投票。

@@ -1,27 +1,95 @@
 ---
-title: Fund Management
-description: How DAO funds are managed and allocated
+title: Treasury Management and Fund Policy
+description: DAO two-tier treasury system, budget denomination and payment currencies
 ---
 
-## Fund Management
+## Two-Tier Treasury System
 
-> **Note**: This page is under construction. Content will be added soon.
+To balance asset security, execution efficiency, and community oversight, we propose establishing a clear two-tier treasury system. The balances and all transfer operations of both treasury tiers should be publicly disclosed on the DAO governance platform.
 
-How DAO funds are managed and allocated
+### Tier 1: DAO Main Treasury
 
-## Coming Soon
+- **Position:** The core asset pool of the entire DAO, i.e., the current Community Fund DAO treasury.
+- **Management:** Continues to be managed by the existing Treasury Committee according to v1.0 rules and multisig procedures.
+- **Responsibilities:** After a proposal passes voting, upon notification from the DAO Stewards team, transfer the project's total budget to a newly established Project Execution Wallet for that project.
 
-This section will include:
+### Tier 2: Project Execution Wallet
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+- **Position:** A temporary multisig wallet independently created for each approved project, used solely for milestone disbursements for that project.
+- **Management:** Managed by a 2/3 multisig, with signers composed of:
+    - **DAO Stewards Representatives x 2:** Providing professional and neutral services.
+    - **Community Observer x 1:** Invited and publicly announced by DAO Stewards from community members who actively participated in the proposal discussion.
+- **Responsibilities:**
+    - Receive the project's total budget transferred from the main treasury.
+    - Pay startup funds and milestone payments to the project team according to procedures.
+    - After project completion, pay remaining funds to the project team, or return excess funds in the wallet to the main treasury.
+    - After project termination, return remaining funds in the wallet to the main treasury.
 
-## Need Help?
+---
 
-If you have questions about this topic, please:
+## Budget Denomination and Payment Currencies
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+To address community concerns about CKB price volatility and provide greater flexibility and financial certainty for all future proposers, this proposal introduces multiple budget denomination options. Project teams can choose one of the following methods:
+
+- **Fixed CKB Amount**: The proposal requests a fixed amount of CKB and discloses the equivalent USD value of the requested budget based on the CKB/USD exchange rate at the time of application.
+- **Fixed USDI Amount**: The proposal requests a fixed amount of the ecosystem stablecoin USDI.
+- **Fixed USD Value (Paid in CKB)**: The proposal requests a fixed USD equivalent, but settlement is made in CKB at project initiation and each milestone payment.
+
+---
+
+## Fund Flow Process Description
+
+Assuming Project A requests a budget equivalent to 50,000 USD, the following examples illustrate fund flow using Scenario A: Fixed CKB Amount, Scenario B: Fixed USDI Amount, and Scenario C: Fixed USD Value (Paid in CKB).
+
+### 1. Proposal Passed
+
+The community votes to approve Project A's total budget on the governance platform:
+- **Scenario A:** 10,000,000 CKB, equivalent to 50,000 USD at the application-time exchange rate of 0.005 CKB/USD
+- **Scenario B:** 50,000 USDI, with USDI and USD at 1:1 parity
+- **Scenario C:** 50,000 USD, paid in CKB
+
+### 2. Project Budget Allocation
+
+The DAO Stewards team notifies the main treasury multisig holders of the project initiation, and the holders execute the multisig to transfer from the main treasury:
+- **Scenario A:** 10,000,000 CKB
+- **Scenario B:** 10,000,000 CKB exchanged for 50,000 USDI
+- **Scenario C:** 500,000 CKB (assuming exchange rate of 0.01 CKB/USD at allocation time)
+
+To the newly established execution wallet for Project A. The 3 holders of Project A's execution wallet (Stewards Representatives x 2, Community Observer) execute a 2/3 multisig to pay 20% of the total budget to the project team's wallet:
+- **Scenario A:** 2,000,000 CKB
+- **Scenario B:** 10,000 USDI
+- **Scenario C:** 100,000 CKB
+
+As startup funds.
+
+### 3. Milestone Completion
+
+Project A completes a milestone. The DAO Stewards team publishes a verification report and passes community quick voting.
+
+### 4. Milestone Disbursement
+
+(If the project passes voting) The 3 holders of Project A's execution wallet (Stewards Representatives x 2, Community Observer) execute a 2/3 multisig to pay the milestone funds (e.g., 20%):
+- **Scenario A:** 2,000,000 CKB
+- **Scenario B:** 10,000 USDI
+- **Scenario C:** 2,000,000 CKB (assuming exchange rate of 0.005 CKB/USD at milestone disbursement)
+
+To the project team.
+
+### 5. Supplementary Budget Allocation
+
+In Scenario C, due to CKB price volatility, Project A's execution wallet may have insufficient CKB to pay subsequent milestone disbursements. In this case, the DAO Stewards team should promptly notify the main treasury multisig holders to make supplementary allocations based on the CKB/USD exchange rate at the time of supplementary allocation.
+
+For example, Project A has 1 remaining milestone payment (20%, 10,000 USD, current CKB/USD rate is 0.02, requiring 500,000 CKB for milestone disbursement), but the project execution wallet only has 100,000 CKB. Upon notification from the DAO Stewards team, the main treasury multisig holders make a supplementary budget allocation, transferring 400,000 CKB to Project A's execution wallet to meet the milestone disbursement.
+
+Scenarios A and B generally do not involve this item.
+
+### 6. Project Completion
+
+If Project A's execution wallet has remaining funds upon project completion:
+- **Scenario A:** The execution wallet holders sign to release all remaining funds to the project team's wallet
+- **Scenario B:** Same as Scenario A
+- **Scenario C:** If Project A's requested budget has not been fully paid, same as Scenario A; if fully paid, return all remaining funds to the main treasury
+
+### 7. Project Termination
+
+If the project is terminated for any reason and Project A's execution wallet has remaining funds, the holders of Project A's execution wallet sign to return all remaining funds to the main treasury.

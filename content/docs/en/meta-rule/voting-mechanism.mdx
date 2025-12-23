@@ -3,25 +3,114 @@ title: Voting Mechanism
 description: How voting works and vote weight calculation
 ---
 
-## Voting Mechanism
+## Voting Weight
 
-> **Note**: This page is under construction. Content will be added soon.
+Voting weight is entirely based on users' CKB deposits in Nervos DAO, continuing the direct weighted voting model from v1.0.
 
-How voting works and vote weight calculation
+---
 
-## Coming Soon
+## Project Voting
 
-This section will include:
+### Initiation Requirement
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+Proposers must hold at least 100,000 CKB in Nervos DAO to initiate voting on the Web5 governance platform.
 
-## Need Help?
+### Voting Duration
 
-If you have questions about this topic, please:
+7 days
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+### Passing Conditions
+
+Following v1.0 core logic:
+
+| Proposal Type | Approval Ratio | Minimum Participation |
+|---------------|----------------|----------------------|
+| Budget Proposal | ≥ 51% | 3x the requested budget |
+| Meta-rule Amendment Proposal | ≥ 67% | 185,000,000 CKB |
+
+---
+
+## Quick Confirmation Vote (Milestone Funding)
+
+To balance governance efficiency with community oversight and avoid voting fatigue and superficial governance, quick voting adopts an "**optimistic governance**" model of "**default pass with community veto power**".
+
+### Voting Duration
+
+3 days
+
+### Voting Options
+
+Confirm Funding VS Reject Funding
+
+### Minimum Voting Threshold
+
+| Proposal Type | Minimum Voting Threshold |
+|---------------|-------------------------|
+| Budget Proposal | Not less than project's requested budget |
+| Meta-rule Amendment Proposal | 62,000,000 CKB (185,000,000/3) |
+
+> The minimum voting threshold here is 1/3 of the project approval threshold, considering the objective fact that community attention naturally decreases during project progress, allowing DAO members who continue to follow progress to act as "whistleblowers," pausing the process to draw community attention and enter subsequent review.
+
+### Decision Threshold and Results
+
+Given the minimum voting threshold is met:
+- If Reject Funding ≥ 51% (Budget Proposals) or ≥ 67% (Meta-rule Amendment Proposals), funding is rejected
+- Otherwise, funding automatically passes
+
+---
+
+## Review Vote
+
+When milestone funding is rejected, a review vote is required.
+
+### Voting Duration
+
+7 days
+
+### Voting Options
+
+Terminate Project and Recover Remaining Funds VS Continue After Resolving Issues
+
+### Minimum Voting Threshold
+
+Same as proposal approval:
+
+| Proposal Type | Minimum Voting Threshold |
+|---------------|-------------------------|
+| Budget Proposal | 3x the project's total requested budget |
+| Meta-rule Amendment Proposal | 185,000,000 CKB |
+
+### Decision Threshold and Results
+
+Given the minimum voting threshold is met:
+- If "Terminate Project and Recover Remaining Funds" wins (≥ 51% (Budget Proposals) or ≥ 67% (Meta-rule Amendment Proposals)), the project is officially terminated, and all remaining funds are returned to the DAO v1.0 main treasury
+- If "Continue After Resolving Issues" wins, the project resumes normal status, and frozen milestone funds are paid normally
+- If the vote fails (minimum voting threshold not met, etc.), milestone funds remain frozen and the project enters a 30-day rectification period
+
+---
+
+## Final Decision Vote
+
+Conducted after the 30-day rectification period, adopting a "**pessimistic governance**" model of "**default failure with community approval power**," where the project team must proactively regain community trust.
+
+### Voting Duration
+
+7 days
+
+### Voting Options
+
+Approve Rectification Proposal VS Reject Rectification Proposal
+
+### Minimum Voting Threshold
+
+| Proposal Type | Minimum Voting Threshold |
+|---------------|-------------------------|
+| Budget Proposal | 3x the project's total requested budget |
+| Meta-rule Amendment Proposal | 185,000,000 CKB |
+
+### Decision Threshold and Results
+
+Given the minimum voting threshold is met:
+- If Approve Rectification Proposal wins (≥ 51% (Budget Proposals) or ≥ 67% (Meta-rule Amendment Proposals)), the project resumes normal status
+- If Reject Rectification Proposal wins, the project is officially terminated
+- If the vote fails (minimum voting threshold not met, etc.), the project is also automatically officially terminated
