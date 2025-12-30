@@ -3,35 +3,44 @@ title: 钱包设置
 description: 如何设置并连接你的钱包到 DAO v1.1
 ---
 
+import cccWallets from './images/ccc-wallets.png';
+import joyidWallet from './images/ccc-joyid.png';
+import createJoyid from './images/joyid-create-account.png';
+
 ## 设置你的钱包
 
-要参与 CKB 社区基金 DAO，你需要一个兼容的钱包。本指南将引导你完成设置过程。
+要参与 CKB 社区基金 DAO，你需要一个兼容的钱包。好消息是，DAO 平台基于 [CCC (Common Chains Connector)](https://github.com/ckb-devrel/ccc) 构建，支持多种主流钱包，你可以直接使用自己常用的钱包。
 
-### 支持的钱包
+### 支持的钱包类型
 
-目前支持以下钱包：
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={cccWallets.src} alt="CCC wallets" style={{ width: '400px' }} />
+</div>
 
-- **JoyID**（推荐）
-- **Neuron 钱包**
-- **Portal 钱包**
+DAO 平台支持以下钱包类型：
 
-### 分步指南
+| 钱包类型 | 支持的钱包 |
+|---------|-----------|
+| **EVM 钱包** | MetaMask、imToken、 CoinBase、OKX Wallet 等所有 EIP-6963 兼容钱包 |
+| **Bitcoin 钱包** | UniSat、Xverse、OKX Wallet、UTXO Global |
+| **CKB 原生钱包** | JoyID、REI Wallet、UTXO Global Wallet |
+| **Nostr 钱包** | 所有 NIP-07 兼容钱包 |
+
+### 推荐：JoyID 钱包
+
+如果你是全新用户，我们推荐使用 **JoyID** 钱包。JoyID 是一个无需下载的多链钱包，支持 CKB、EVM、Bitcoin 和 Nostr。
 
 <Steps>
 
 <Step>
 
-### 安装钱包
+### 创建 JoyID 钱包
 
-从官方网站下载并安装你喜欢的钱包。
+访问 [app.joy.id](https://app.joy.id)，按照页面提示创建钱包。无需下载任何应用，直接在浏览器中完成。
 
-</Step>
-
-<Step>
-
-### 创建或导入账户
-
-按照钱包的说明创建新账户或导入现有账户。
+<div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+  <img src={createJoyid.src} alt="Create JoyID account" style={{ width: '360px' }} />
+</div>
 
 </Step>
 
@@ -39,16 +48,61 @@ description: 如何设置并连接你的钱包到 DAO v1.1
 
 ### 连接到 DAO 平台
 
-访问 DAO 平台并点击"连接钱包"以链接你的钱包。
+访问 DAO 治理平台，点击"连接钱包"按钮，选择 JoyID 并授权连接。
+
+<div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+  <img src={joyidWallet.src} alt="JoyID wallet" style={{ width: '400px' }} />
+</div>
 
 </Step>
 
 </Steps>
 
+### 使用现有钱包
+
+如果你已经有上述支持的钱包，可以直接使用：
+
+<Steps>
+
+<Step>
+
+### 访问 DAO 平台
+
+打开 DAO 治理平台。
+
+</Step>
+
+<Step>
+
+### 连接钱包
+
+点击"连接钱包"按钮，从列表中选择你的钱包类型，按提示完成授权。
+
+</Step>
+
+</Steps>
+
+## 参与投票的前置条件
+
+要参与 CKB Community Fund DAO 治理投票，你需要满足以下条件：
+
+1. **连接 CKB 钱包** - 使用上述支持的钱包连接到 DAO 平台
+2. **创建 Web5 DID** - 在平台上创建你的去中心化身份（[了解更多](./register-web5-did)）
+3. **存入 Nervos DAO** - 你的 CKB 钱包地址需要在 [NervDAO](https://nervdao.com) 中有存款
+
+<Callout title="提示" type="info">
+如果你使用 Neuron 钱包存入了 Nervos DAO，可以将该地址绑定到你连接的钱包地址，同样可以获得投票权。
+</Callout>
+
+### 如何获取 CKB
+
+CKB 可通过[主流 CEX 交易所](https://coinmarketcap.com/currencies/nervos-network/#Markets)购买。
+
 ## 下一步
 
 设置好钱包后，你可以：
 
-- [获取 CKB](./acquiring-ckb) 以参与投票
+- [存入 Nervos DAO](./deposit-nervos-dao) 获得投票权
+- [注册 Web5 DID](./register-web5-did) 创建链上身份
 - [提交提案](../core-functions/submit-proposal)
 - [对现有提案投票](../core-functions/vote-on-proposal)

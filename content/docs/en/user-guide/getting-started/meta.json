@@ -2,7 +2,6 @@
   "title": "Getting Started",
   "pages": [
     "wallet-setup",
-    "acquiring-ckb",
     "deposit-nervos-dao",
     "register-web5-did"
   ]

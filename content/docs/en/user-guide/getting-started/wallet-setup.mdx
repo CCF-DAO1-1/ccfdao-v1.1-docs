@@ -3,35 +3,44 @@ title: Wallet Setup
 description: How to set up and connect your wallet to DAO v1.1
 ---
 
+import cccWallets from './images/ccc-wallets.png';
+import joyidWallet from './images/ccc-joyid.png';
+import createJoyid from './images/joyid-create-account.png';
+
 ## Setting Up Your Wallet
 
-To participate in the CKB Community Fund DAO, you'll need a compatible wallet. This guide will walk you through the setup process.
+To participate in the CKB Community Fund DAO, you'll need a compatible wallet. The good news is that the DAO platform is built on [CCC (Common Chains Connector)](https://github.com/ckb-devrel/ccc), which supports a wide range of popular wallets. You can simply use your existing wallet.
 
-### Supported Wallets
+### Supported Wallet Types
 
-The following wallets are currently supported:
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={cccWallets.src} alt="CCC wallets" style={{ width: '400px' }} />
+</div>
 
-- **JoyID** (Recommended)
-- **Neuron Wallet**
-- **Portal Wallet**
+The DAO platform supports the following wallet types:
 
-### Step-by-Step Guide
+| Wallet Type | Supported Wallets |
+|-------------|-------------------|
+| **EVM Wallets** | MetaMask, imToken, CoinBase, OKX Wallet, and all EIP-6963 compatible wallets |
+| **Bitcoin Wallets** | UniSat, Xverse, OKX Wallet, UTXO Global |
+| **CKB Native Wallets** | JoyID, REI Wallet, UTXO Global Wallet |
+| **Nostr Wallets** | All NIP-07 compatible wallets |
+
+### Recommended: JoyID Wallet
+
+If you're a new user, we recommend using **JoyID** wallet. JoyID is a multi-chain wallet that requires no download and supports CKB, EVM, Bitcoin, and Nostr.
 
 <Steps>
 
 <Step>
 
-### Install Your Wallet
+### Create a JoyID Wallet
 
-Download and install your preferred wallet from the official website.
+Visit [app.joy.id](https://app.joy.id) and follow the prompts to create your wallet. No app download required - everything is done directly in your browser.
 
-</Step>
-
-<Step>
-
-### Create or Import Account
-
-Follow the wallet's instructions to create a new account or import an existing one.
+<div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+  <img src={createJoyid.src} alt="Create JoyID account" style={{ width: '360px' }} />
+</div>
 
 </Step>
 
@@ -39,16 +48,61 @@ Follow the wallet's instructions to create a new account or import an existing o
 
 ### Connect to DAO Platform
 
-Visit the DAO platform and click "Connect Wallet" to link your wallet.
+Visit the DAO governance platform, click the "Connect Wallet" button, select JoyID, and authorize the connection.
+
+<div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+  <img src={joyidWallet.src} alt="JoyID wallet" style={{ width: '400px' }} />
+</div>
 
 </Step>
 
 </Steps>
 
+### Using an Existing Wallet
+
+If you already have one of the supported wallets, you can use it directly:
+
+<Steps>
+
+<Step>
+
+### Visit the DAO Platform
+
+Open the DAO governance platform.
+
+</Step>
+
+<Step>
+
+### Connect Your Wallet
+
+Click the "Connect Wallet" button, select your wallet type from the list, and follow the prompts to authorize.
+
+</Step>
+
+</Steps>
+
+## Prerequisites for Voting
+
+To participate in CKB Community Fund DAO governance voting, you need to meet the following requirements:
+
+1. **Connect a CKB Wallet** - Connect to the DAO platform using one of the supported wallets above
+2. **Create a Web5 DID** - Create your decentralized identity on the platform ([Learn more](./register-web5-did))
+3. **Deposit to Nervos DAO** - Your CKB wallet address must have deposits in [NervDAO](https://nervdao.com)
+
+<Callout title="Tip" type="info">
+If you have deposited to Nervos DAO using Neuron Wallet, you can bind that address to your connected wallet address to obtain voting rights.
+</Callout>
+
+### How to Get CKB
+
+CKB can be purchased through [major CEX exchanges](https://coinmarketcap.com/currencies/nervos-network/#Markets).
+
 ## Next Steps
 
 Once your wallet is set up, you can:
 
-- [Acquire CKB](./acquiring-ckb) to participate in voting
+- [Deposit to Nervos DAO](./deposit-nervos-dao) to obtain voting rights
+- [Register Web5 DID](./register-web5-did) to create your on-chain identity
 - [Submit a proposal](../core-functions/submit-proposal)
 - [Vote on existing proposals](../core-functions/vote-on-proposal)
