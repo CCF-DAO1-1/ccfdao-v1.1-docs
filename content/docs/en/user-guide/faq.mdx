@@ -1,27 +1,164 @@
 ---
 title: Frequently Asked Questions
-description: Common questions and answers about using the DAO platform
+description: Common questions and answers about using the CKB Community Fund DAO platform
 ---
 
-## Frequently Asked Questions
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-> **Note**: This page is under construction. Content will be added soon.
+<Callout title="Terminology Note" type="warning">
+For clarity, all references to "deposit", "deposited balance", or "deposit status" in this document refer to CKB that has been deposited into Nervos DAO and is **currently locked**. CKB that has initiated withdrawal or is in circulation does not count toward voting weight.
+</Callout>
 
-Common questions and answers about using the DAO platform
+## Wallet & Connection
 
-## Coming Soon
+<Accordions>
+<Accordion title="Which wallets are supported?">
+The DAO platform is built on [CCC](https://github.com/ckb-devrel/ccc) (Common Chains Connector) and supports the following wallet types:
 
-This section will include:
+- **EVM Wallets**: MetaMask, imToken, CoinBase, OKX Wallet, and all EIP-6963 compatible wallets
+- **Bitcoin Wallets**: UniSat, Xverse, OKX Wallet, UTXO Global
+- **CKB Native Wallets**: JoyID, REI Wallet, UTXO Global Wallet
+- **Nostr Wallets**: All NIP-07 compatible wallets
+</Accordion>
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+<Accordion title="Which wallet do you recommend?">
+If you're a new user, we recommend using **JoyID** wallet. JoyID is a multi-chain wallet that requires no app download - simply visit [app.joy.id](https://app.joy.id) in your browser to create and use it.
+</Accordion>
 
-## Need Help?
+<Accordion title="Why is my wallet connection failing?">
+Please check the following:
 
-If you have questions about this topic, please:
+1. Make sure your wallet extension (e.g., MetaMask) is installed and unlocked
+2. Ensure your browser allows the wallet extension to access the current page
+3. Try refreshing the page and reconnecting
+4. If using JoyID, make sure your browser supports WebAuthn
+</Accordion>
+</Accordions>
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+## Voting Rights & Eligibility
+
+<Accordions>
+<Accordion title="How do I get voting rights?">
+To participate in DAO governance voting, you need to meet the following requirements:
+
+1. **Connect a CKB Wallet** - Connect to the DAO platform using a supported wallet
+2. **Create a Web5 DID** - Create your decentralized identity on the platform
+3. **Deposit to Nervos DAO** - Your CKB wallet address must have deposits in [NervDAO](https://nervdao.com)
+</Accordion>
+
+<Accordion title="I deposited to Nervos DAO using Neuron wallet. Can I vote?">
+Yes. You can bind the wallet address in Neuron that has locked CKB in Nervos DAO to your Web5 DID connected on the DAO platform, and you will also receive voting rights.
+</Accordion>
+
+<Accordion title="How is voting weight calculated?">
+Voting weight is based on the amount of CKB you have deposited in Nervos DAO. The more CKB deposited, the greater your voting weight. Each Web5 DID corresponds to one Owner address, and each Owner address can bind multiple CKB wallet addresses. For a given Web5 DID, its voting weight equals the Nervos DAO balance of its Owner address plus the total Nervos DAO deposits of all bound CKB wallet addresses.
+
+Example:
+- Alice registers a Web5 DID named "alice" using JoyID wallet address A, and this wallet address A has deposited 100,000 CKB in Nervos DAO via nervdao.com.
+- Additionally, Alice has deposited 500,000 CKB in Neuron wallet address B.
+- Alice binds address B to her Web5 DID through the DAO platform.
+Alice's total voting weight is:
+100,000 CKB + 500,000 CKB = 600,000 CKB.
+
+For detailed calculation rules, please refer to the [Voting Mechanism](/en/docs/meta-rule/voting-mechanism) documentation.
+</Accordion>
+
+<Accordion title="What is Web5 DID? Why is it needed?">
+Web5 DID (Decentralized Identity) is a blockchain-based identity identifier. In the DAO platform, DID is used for:
+
+- Uniquely identifying voter identity
+- Preventing duplicate voting
+- Associating your wallet addresses with voting records
+</Accordion>
+</Accordions>
+
+## Proposals & Voting
+
+<Accordions>
+<Accordion title="How do I submit a proposal?">
+Proposals go through the following process:
+
+1. Create a proposal on the DAO platform, actively participate in community discussions and collect feedback
+2. Refine the proposal content based on feedback
+3. After meeting the community review period requirements, the proposer can choose whether to enter the project approval voting stage
+4. Enter the project approval voting stage and await community voting results
+
+<Callout title="Note" type="warning">
+Once entering the project approval voting stage, the proposal has officially entered the decision-making process.
+</Callout>
+
+
+For detailed process, please refer to the [Proposal Lifecycle](/en/docs/meta-rule/proposal-lifecycle) documentation.
+</Accordion>
+
+<Accordion title="How long is the voting period?">
+Voting periods vary by voting type:
+
+| Voting Type | Duration |
+|-------------|----------|
+| Project Approval Voting | 7 days |
+| Quick Confirmation Voting (Milestone Disbursement) | 3 days |
+| Review Voting | 7 days |
+| Final Arbitration Voting | 7 days |
+
+For details, please refer to the [Voting Mechanism](/en/docs/meta-rule/voting-mechanism) documentation.
+</Accordion>
+
+<Accordion title="Can I change my vote after voting?">
+You can change your vote before the voting period ends. Once the voting period ends, the voting results are locked and cannot be changed.
+</Accordion>
+
+<Accordion title="What are the conditions for a proposal to pass?">
+A proposal must meet the following conditions to pass:
+
+1. **Quorum**: The voting weight participation reaches the minimum threshold
+2. **Approval Rate**: The proportion of approval votes exceeds the required percentage
+
+Different types of proposals may have different passing conditions. For details, please refer to the [Voting Mechanism](/en/docs/meta-rule/voting-mechanism) documentation.
+</Accordion>
+</Accordions>
+
+## Acquiring CKB
+
+<Accordions>
+<Accordion title="How do I get CKB?">
+CKB can be purchased through [major CEX exchanges](https://coinmarketcap.com/currencies/nervos-network/#Markets).
+</Accordion>
+
+<Accordion title="How much CKB do I need to participate in voting?">
+There is no minimum CKB requirement, but you need to have deposits in Nervos DAO to obtain voting rights. The deposit amount affects your voting weight.
+</Accordion>
+</Accordions>
+
+## Other Questions
+
+<Accordions>
+<Accordion title="What are DAO Stewards?">
+DAO Stewards are the team responsible for the daily operations and maintenance of the DAO. Their responsibilities include:
+
+- Maintaining DAO infrastructure
+- Coordinating community discussions
+- Overseeing proposal execution
+- Handling emergency matters
+
+For details, please refer to the [DAO Stewards](/en/docs/overview/dao-stewards) documentation.
+</Accordion>
+
+<Accordion title="How do I contact the community?">
+You can reach the CKB community through the following channels:
+
+- **Talk Forum**: The most hardcore CKB community forum for in-depth technical discussions — https://talk.nervos.org/
+- **Social Media**: Follow official social media accounts for the latest updates
+  - Telegram: https://t.me/NervosNetwork
+  - X (Twitter): https://x.com/NervosNetwork
+  - **Discord**: https://discord.gg/FKh8Zzvwqa
+</Accordion>
+
+<Accordion title="What should I do if I encounter technical issues?">
+If you encounter technical issues:
+
+1. First, consult this FAQ and related documentation
+2. Seek help in the community forum or Discord
+3. If it's a platform bug, please submit an Issue on [GitHub](https://github.com/ccf-dao1-1/ckb-fund-dao-ui)
+</Accordion>
+</Accordions>

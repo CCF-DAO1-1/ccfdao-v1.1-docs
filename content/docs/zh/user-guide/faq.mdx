@@ -1,27 +1,164 @@
 ---
 title: 常见问题
-description: 关于使用 DAO 平台的常见问题和答案
+description: 关于使用 CKB Community Fund DAO 平台的常见问题和解答
 ---
 
-## 常见问题
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-> **Note**: This page is under construction. Content will be added soon.
+<Callout title="术语说明" type="warning">
+为便于理解，本文档中所有「存入」、「存款」、「存款余额」等表述，均指存入 Nervos DAO 且**处于锁定状态**的 CKB。已发起提取或处于流通中的 CKB 不计入投票权重。
+</Callout>
 
-关于使用 DAO 平台的常见问题和答案
+## 钱包与连接
 
-## Coming Soon
+<Accordions>
+<Accordion title="支持哪些钱包？">
+DAO 平台基于 [CCC](https://github.com/ckb-devrel/ccc)（Common Chains Connector）构建，支持以下钱包类型：
 
-This section will include:
+- **EVM 钱包**：MetaMask、imToken、CoinBase、OKX Wallet 等所有 EIP-6963 兼容钱包
+- **Bitcoin 钱包**：UniSat、Xverse、OKX Wallet、UTXO Global
+- **CKB 原生钱包**：JoyID、REI Wallet、UTXO Global Wallet
+- **Nostr 钱包**：所有 NIP-07 兼容钱包
+</Accordion>
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+<Accordion title="推荐使用哪个钱包？">
+如果你是新用户，我们推荐使用 **JoyID** 钱包。JoyID 是一个多链钱包，无需下载任何应用，直接在浏览器中访问 [app.joy.id](https://app.joy.id) 即可创建和使用。
+</Accordion>
 
-## Need Help?
+<Accordion title="为什么我的钱包连接失败？">
+请检查以下几点：
 
-If you have questions about this topic, please:
+1. 确保你的钱包扩展如 MetaMask 已安装并解锁
+2. 确保你的浏览器允许钱包扩展访问当前页面
+3. 尝试刷新页面后重新连接
+4. 如果使用 JoyID，请确保你的浏览器支持 WebAuthn
+</Accordion>
+</Accordions>
 
-- Check the [FAQ](../user-guide/faq) section
-- Visit our community forum
-- Open an issue on GitHub
+## 投票权与参与资格
+
+<Accordions>
+<Accordion title="如何获得投票权？">
+要参与 DAO 治理投票，你需要满足以下条件：
+
+1. **连接 CKB 钱包** - 使用支持的钱包连接到 DAO 平台
+2. **创建 Web5 DID** - 在平台上创建你的去中心化身份
+3. **存入 Nervos DAO** - 你的 CKB 钱包地址需要在 [NervDAO](https://nervdao.com) 中有存款
+</Accordion>
+
+<Accordion title="我使用 Neuron 钱包存入了 Nervos DAO，可以投票吗？">
+可以。你可以将 Neuron 钱包里锁定了 NervosDAO 的钱包地址绑定到你在 DAO 平台连接的 Web5 DID，这样同样可以获得投票权。
+</Accordion>
+
+<Accordion title="投票权重是如何计算的？">
+投票权重基于你在 Nervos DAO 中的存款金额。存入的 CKB 越多，投票权重越大。一个 Web5 DID 对应一个 Owner 地址，每个 Owner 地址可以绑定多个 CKB 钱包地址。对于某个 Web5 DID，其投票权重等于其 Owner 地址本身的NervosDAO 余额 + 与之绑定的所有 CKB 钱包地址的 NervosDAO 存款总额。
+
+举例说明：
+- Alice 使用 JoyID 钱包地址 A 注册了一个 Web5 DID，名为 alice，同时该钱包地址 A 在 nervdao.com 上存了 100,000 CKB 在 NervosDAO里。
+- 此外，Alice 还在 Neuron 的钱包地址 B 上存了 500,000 CKB。
+- Alice 通过 DAO 平台将地址 B 与其 Web5 DID 绑定。
+这样 alice 的总投票权重为：
+ 100,000 CKB + 500,000 CKB = 600,000 CKB。
+
+具体计算规则请参考[投票机制](/zh/docs/meta-rule/voting-mechanism)文档。
+</Accordion>
+
+<Accordion title="什么是 Web5 DID？为什么需要它？">
+Web5 DID（去中心化身份）是一种基于区块链的身份标识。在 DAO 平台中，DID 用于：
+
+- 唯一标识投票者身份
+- 防止重复投票
+- 关联你的钱包地址与投票记录
+</Accordion>
+</Accordions>
+
+## 提案与投票
+
+<Accordions>
+<Accordion title="如何提交提案？">
+提案需要经过以下流程：
+
+1. 在 DAO 平台发起提案，积极参与社区讨论并收集反馈
+2. 根据反馈完善提案内容
+3. 满足社区评议期要求后，提案人可以选择是否进入立项投票阶段
+4. 进入立项投票阶段，等待社区投票结果
+
+<Callout title="注意" type="warning">
+一旦进入立项投票阶段，意味着提案已正式进入决策流程。
+</Callout>
+
+
+详细流程请参考[提案生命周期](/zh/docs/meta-rule/proposal-lifecycle)文档。
+</Accordion>
+
+<Accordion title="投票期限是多久？">
+投票期限根据投票类型不同：
+
+| 投票类型 | 投票时间 |
+|---------|---------|
+| 立项投票 | 7 天 |
+| 快速确认投票（里程碑拨款） | 3 天 |
+| 复核投票 | 7 天 |
+| 最终裁决投票 | 7 天 |
+
+详情请参考[投票机制](/zh/docs/meta-rule/voting-mechanism)文档。
+</Accordion>
+
+<Accordion title="投票后可以更改吗？">
+在投票期结束前，你可以更改你的投票。一旦投票期结束，投票结果将被锁定，无法更改。
+</Accordion>
+
+<Accordion title="提案通过的条件是什么？">
+提案通过需要满足：
+
+1. **法定人数**：参与投票的权重达到最低门槛
+2. **支持率**：支持票占比超过规定比例
+
+不同类型的提案可能有不同的通过条件，详情请参考[投票机制](/zh/docs/meta-rule/voting-mechanism)文档。
+</Accordion>
+</Accordions>
+
+## CKB 获取
+
+<Accordions>
+<Accordion title="如何获取 CKB？">
+CKB 可通过[主流 CEX 交易所](https://coinmarketcap.com/currencies/nervos-network/#Markets)购买。
+</Accordion>
+
+<Accordion title="需要多少 CKB 才能参与投票？">
+没有最低 CKB 数量要求，但你需要在 Nervos DAO 中有存款才能获得投票权。存款金额会影响你的投票权重。
+</Accordion>
+</Accordions>
+
+## 其他问题
+
+<Accordions>
+<Accordion title="DAO 物业是什么？">
+DAO 物业（DAO Stewards）是负责 DAO 日常运营和维护的团队。他们的职责包括：
+
+- 维护 DAO 基础设施
+- 协调社区讨论
+- 监督提案执行
+- 处理紧急事务
+
+详情请参考 [DAO 物业](/zh/docs/overview/dao-stewards)文档。
+</Accordion>
+
+<Accordion title="如何联系社区？">
+你可以通过以下渠道联系 CKB 社区：
+
+- **Talk 论坛**：CKB 最硬核的社区论坛，讨论最深入的技术话题 ———— https://talk.nervos.org/
+- **社交媒体**：关注官方社交媒体账号获取最新动态
+  - Telegram: https://t.me/NervosNetwork
+  - X (Twitter): https://x.com/NervosNetwork
+  - **Discord**：https://discord.gg/FKh8Zzvwqa
+</Accordion>
+
+<Accordion title="遇到技术问题怎么办？">
+如果遇到技术问题：
+
+1. 首先查阅本 FAQ 和相关文档
+2. 在社区论坛或 Discord 寻求帮助
+3. 如果是平台 Bug，请前往 [GitHub](https://github.com/ccf-dao1-1/ckb-fund-dao-ui) 提交 Issue
+</Accordion>
+</Accordions>
