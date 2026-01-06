@@ -1,0 +1,145 @@
+---
+title: 绑定 NervosDAO 地址
+description: 如何将 Neuron 钱包的 NervosDAO 地址绑定到 Web5 DID 以增加投票权重
+---
+
+import bindNervosDaoAddressStep1 from './images/bind-nervosdao-step1.png';
+import bindNervosDaoAddressStep2 from './images/bind-nervosdao-step2.png';
+import bindNervosDaoAddressStep3 from './images/bind-nervosdao-step3.png';
+import bindNervosDaoAddressStep4 from './images/bind-nervosdao-step4.png';
+import bindNervosDaoAddressStep5 from './images/bind-nervosdao-step5.png';
+import bindNervosDaoAddressStep6 from './images/bind-nervosdao-step6.png';
+import bindNervosDaoAddressStep7 from './images/bind-nervosdao-step7.png';
+
+## 为什么要绑定 NervosDAO 地址？
+
+如果你在 Neuron 钱包中存入了 Nervos DAO，但使用其他钱包（如 JoyID、MetaMask）注册了 Web5 DID，你可以将 Neuron 钱包的 NervosDAO 地址绑定到你的 Web5 DID，从而将这部分存款计入你的投票权重。
+
+<Callout title="适用场景" type="info">
+此功能适用于：
+- 在 Neuron 钱包中有 Nervos DAO 存款
+- 使用其他钱包注册了 Web5 DID
+- 希望将 Neuron 中的存款权重合并到 Web5 DID
+</Callout>
+
+## 绑定步骤
+
+<Steps>
+
+<Step>
+
+### 登录 DAO 治理平台
+
+使用你注册 Web5 DID 的钱包连接到 DAO 治理平台（默认情况下，当你注册了 Web5 DID 后，下次进入平台时会自动连接到该 DID）。
+
+</Step>
+
+<Step>
+
+### 进入个人中心
+
+点击页面右上角的头像或账户按钮，进入个人中心页面。
+
+</Step>
+
+<Step>
+
+### 添加绑定地址
+
+在个人中心找到「钱包及 Nervos DAO」卡片，点击「绑定 Neuron 钱包地址」，然后点击「添加新钱包地址」。如下图所示：
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep1.src} alt="绑定地址" style={{ width: '400px' }} />
+</div>
+
+之后，你会看到一个弹框如下图所示，注意看，那一串 0x.... 字符串后面有一个复制图标按钮，之后需要将这串字符串复制下来，并在 Neuron 钱包里对其进行签名。
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep2.src} alt="准备签名" style={{ maxWidth: '600px' }} />
+</div>
+
+</Step>
+
+
+<Step>
+
+### 切换到 Neuron 钱包，复制你想要绑定的地址
+
+我们先来在 Neuron 钱包中找到你想要绑定的、存有 Nervos DAO 的 CKB 地址。
+
+<Callout title="如何获取你的 NervosDAO 地址？" type="info">
+在 Neuron 钱包中，进入「Nervos DAO」标签页，点开某一笔存款，查看交易详情：
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep3.src} alt="查看交易详情地址" />
+</div>
+
+在交易详情页面的`输出`中，有 2 个地址，其中一个是你的 Nervos DAO 地址（一般是第一个输出），另外一个是找零地址，你也可以通过`数量`判断出哪个是 Nervos DAO 地址，然后，点击改地址即可复制 Nervos DAO 地址：
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep4.src} alt="复制Nervos DAO地址" />
+</div>
+
+</Callout>
+
+</Step>
+
+<Step>
+
+### 在 Neuron 钱包中签名
+
+点击 Neuron 钱包菜单中的「工具」，然后选择「签名/验签信息」：
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep5.src} alt="签名验证" style={{ maxWidth: '600px' }} />
+</div>
+
+首先，在地址栏里，先粘贴上一步骤已复制的 Nervos DAO 地址；
+接着，在信息框中，粘贴第 3 步在 DAO 平台复制的`签名信息`字符串
+然后点击 `签名`按钮，输入你的 Neuron 钱包密码进行签名，以证明你拥有该地址的控制权。签名成功后，你会在签名框里，看到一串 0x 开头的签名字符串。
+最后，复制这一串签名编辑框里的字符串。
+</Step>
+
+<Step>
+
+### 将 Neuron 钱包里的签名字符串粘贴到 DAO 平台
+
+回到 DAO 平台，也即步骤 3 中打开的页面，将复制的签名字符串粘贴到`签名`输入框中，然后点击`绑定`按钮。
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep6.src} alt="绑定" style={{ maxWidth: '600px' }} />
+</div>
+
+</Step>
+
+<Step>
+
+### 完成绑定
+
+点击绑定按钮，这时需签名，以证明你对 Web5 DID 的控制权。签名后，收到如下提示，完成绑定。
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep7.src} alt="绑定成功" style={{ maxWidth: '400px' }} />
+</div>
+
+</Step>
+
+</Steps>
+
+## 绑定后的效果
+
+绑定成功后：
+
+- 你的投票权重将自动包含 Neuron 钱包中 Nervos DAO 的存款金额
+- 一个 Web5 DID 可以绑定多个 CKB 地址
+- 所有绑定地址的 Nervos DAO 存款都会计入总投票权重
+
+## 注意事项
+
+- **一个地址只能绑定到一个 Web5 DID** - 如果某个地址已被其他 DID 绑定，则无法重复绑定
+- **绑定不影响资产安全** - 绑定操作只是关联地址，不会转移或锁定你的资产
+- **投票白名单时机** - 绑定地址后，需要在下一次提案发起投票时才会被纳入白名单
+
+## 下一步
+
+完成地址绑定后，你已具备参与 DAO 治理投票的完整条件。可以：
+
+- 浏览当前的[提案列表](/zh/docs/user-guide/voting/browse-proposals)
+- 了解[投票机制](/zh/docs/meta-rule/voting-mechanism)
