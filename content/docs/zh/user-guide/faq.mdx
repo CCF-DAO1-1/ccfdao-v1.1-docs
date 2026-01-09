@@ -38,16 +38,16 @@ DAO 平台基于 [CCC](https://github.com/ckb-devrel/ccc)（Common Chains Connec
 ## 投票权与参与资格
 
 <Accordions>
-<Accordion title="如何获得投票权？">
+<Accordion title="我想参与治理，需要做哪些准备？">
 要参与 DAO 治理投票，你需要满足以下条件：
 
 1. **连接 CKB 钱包** - 使用支持的钱包连接到 DAO 平台
 2. **创建 Web5 DID** - 在平台上创建你的去中心化身份
-3. **存入 Nervos DAO** - 你的 CKB 钱包地址需要在 [NervDAO](https://nervdao.com) 中有存款
+3. **存入 Nervos DAO** - 你的 CKB 钱包地址（也即你创建 Web5 DID 的钱包地址）需要在 [NervDAO](https://nervdao.com) 中有存款，或者你在 DAO 治理平台的个人中心绑定了 Neuron 钱包里的存款地址。绑定教程参见👉：[绑定 NervosDAO 地址](/zh/docs/user-guide/getting-started/bind-nervosdao-address)。
 </Accordion>
 
 <Accordion title="我使用 Neuron 钱包存入了 Nervos DAO，可以投票吗？">
-可以。你可以将 Neuron 钱包里锁定了 NervosDAO 的钱包地址绑定到你在 DAO 平台连接的 Web5 DID，这样同样可以获得投票权。
+可以。你可以将 Neuron 钱包里锁定了 NervosDAO 的钱包地址绑定到你在 DAO 平台连接的 Web5 DID，这样同样可以获得投票权。具体的绑定过程，请参考👉：[绑定 NervosDAO 地址](/zh/docs/user-guide/getting-started/bind-nervosdao-address)。
 </Accordion>
 
 <Accordion title="投票权重是如何计算的？">
@@ -69,6 +69,26 @@ Web5 DID（去中心化身份）是一种基于区块链的身份标识。在 DA
 - 唯一标识投票者身份
 - 防止重复投票
 - 关联你的钱包地址与投票记录
+</Accordion>
+
+<Accordion title="谁可以投票？">
+DAO v1.1 的投票通过智能合约实现。在提案发起投票时，系统会收集当前所有已注册的 Web5 DID 账号对应的 Owner 地址（CKB 地址）作为**投票白名单**。只有在白名单内的 Web5 DID 账号才能参与该提案的投票。
+
+社区成员可以将自己的 Nervos DAO 地址绑定到白名单地址中，以增加投票权重。
+</Accordion>
+
+<Accordion title="我刚注册了 Web5 DID，为什么无法参与当前投票？">
+这是因为投票白名单是在**提案发起投票时**生成的。如果你在某个提案已经进入投票阶段后才注册 Web5 DID，由于发起投票时系统没有收集到你的 Web5 DID，所以你无法参与该提案的投票。
+
+但你可以参与之后发起的新提案投票，只要在新提案发起投票之前完成 Web5 DID 注册即可。
+</Accordion>
+
+<Accordion title="如何确保我能参与投票？">
+为确保你能参与投票，建议：
+
+1. **尽早注册 Web5 DID** - 在你感兴趣的提案进入投票阶段之前完成注册
+2. **关注提案进度** - 留意社区评议期的提案，在其进入投票阶段前完成准备
+3. **绑定 Nervos DAO 地址** - 将你存有 CKB 的 Nervos DAO 地址绑定到 Web5 DID，以获得投票权重
 </Accordion>
 </Accordions>
 

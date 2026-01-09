@@ -38,16 +38,16 @@ Please check the following:
 ## Voting Rights & Eligibility
 
 <Accordions>
-<Accordion title="How do I get voting rights?">
+<Accordion title="What do I need to prepare to participate in governance?">
 To participate in DAO governance voting, you need to meet the following requirements:
 
 1. **Connect a CKB Wallet** - Connect to the DAO platform using a supported wallet
 2. **Create a Web5 DID** - Create your decentralized identity on the platform
-3. **Deposit to Nervos DAO** - Your CKB wallet address must have deposits in [NervDAO](https://nervdao.com)
+3. **Deposit to Nervos DAO** - Your CKB wallet address (i.e., the wallet address you used to create Web5 DID) must have deposits in [NervDAO](https://nervdao.com), or you have bound a Neuron wallet deposit address in the DAO governance platform's profile center. See the binding tutorial 👉: [Bind NervosDAO Address](/en/docs/user-guide/getting-started/bind-nervosdao-address).
 </Accordion>
 
 <Accordion title="I deposited to Nervos DAO using Neuron wallet. Can I vote?">
-Yes. You can bind the wallet address in Neuron that has locked CKB in Nervos DAO to your Web5 DID connected on the DAO platform, and you will also receive voting rights.
+Yes. You can bind the wallet address in Neuron that has locked CKB in Nervos DAO to your Web5 DID connected on the DAO platform, and you will also receive voting rights. For the binding process, please refer to 👉: [Bind NervosDAO Address](/en/docs/user-guide/getting-started/bind-nervosdao-address).
 </Accordion>
 
 <Accordion title="How is voting weight calculated?">
@@ -69,6 +69,26 @@ Web5 DID (Decentralized Identity) is a blockchain-based identity identifier. In 
 - Uniquely identifying voter identity
 - Preventing duplicate voting
 - Associating your wallet addresses with voting records
+</Accordion>
+
+<Accordion title="Who can vote?">
+Voting in DAO v1.1 is implemented through smart contracts. When a proposal initiates voting, the system collects the Owner addresses (CKB addresses) corresponding to all currently registered Web5 DID accounts as the **voting whitelist**. Only Web5 DID accounts on the whitelist can participate in voting for that proposal.
+
+Community members can bind their Nervos DAO addresses to whitelist addresses to increase their voting weight.
+</Accordion>
+
+<Accordion title="I just registered a Web5 DID. Why can't I participate in the current vote?">
+This is because the voting whitelist is generated **when the proposal initiates voting**. If you register your Web5 DID after a proposal has already entered the voting stage, since the system did not collect your Web5 DID when voting was initiated, you cannot participate in that proposal's vote.
+
+However, you can participate in future proposal votes, as long as you complete your Web5 DID registration before the new proposal initiates voting.
+</Accordion>
+
+<Accordion title="How can I ensure I can participate in voting?">
+To ensure you can participate in voting, we recommend:
+
+1. **Register Web5 DID early** - Complete registration before proposals you're interested in enter the voting stage
+2. **Follow proposal progress** - Pay attention to proposals in the community review period and prepare before they enter the voting stage
+3. **Bind Nervos DAO addresses** - Bind your Nervos DAO addresses containing CKB to your Web5 DID to obtain voting weight
 </Accordion>
 </Accordions>
 
