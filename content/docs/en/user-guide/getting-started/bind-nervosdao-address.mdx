@@ -1,0 +1,145 @@
+---
+title: Bind NervosDAO Address
+description: How to bind your Neuron wallet's NervosDAO address to Web5 DID to increase voting weight
+---
+
+import bindNervosDaoAddressStep1 from './images/bind-nervosdao-step1.png';
+import bindNervosDaoAddressStep2 from './images/bind-nervosdao-step2.png';
+import bindNervosDaoAddressStep3 from './images/bind-nervosdao-step3.png';
+import bindNervosDaoAddressStep4 from './images/bind-nervosdao-step4.png';
+import bindNervosDaoAddressStep5 from './images/bind-nervosdao-step5.png';
+import bindNervosDaoAddressStep6 from './images/bind-nervosdao-step6.png';
+import bindNervosDaoAddressStep7 from './images/bind-nervosdao-step7.png';
+
+## Why Bind a NervosDAO Address?
+
+If you have deposited CKB into Nervos DAO using Neuron wallet but registered your Web5 DID with another wallet (such as JoyID or MetaMask), you can bind your Neuron wallet's NervosDAO address to your Web5 DID to include that deposit in your voting weight.
+
+<Callout title="Applicable Scenarios" type="info">
+This feature is suitable for users who:
+- Have Nervos DAO deposits in Neuron wallet
+- Registered Web5 DID with a different wallet
+- Want to combine Neuron deposit weight with their Web5 DID
+</Callout>
+
+## Binding Steps
+
+<Steps>
+
+<Step>
+
+### Log in to the DAO Governance Platform
+
+Connect to the DAO governance platform using the wallet you registered your Web5 DID with (by default, after registering a Web5 DID, the platform will automatically connect to that DID on your next visit).
+
+</Step>
+
+<Step>
+
+### Go to Profile Center
+
+Click on the avatar or account button in the top right corner of the page to enter the profile center.
+
+</Step>
+
+<Step>
+
+### Add Binding Address
+
+In the profile center, find the "Wallet & Nervos DAO" card, click "Bind Neuron Wallet Address", then click "Add New Wallet Address". As shown below:
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep1.src} alt="Bind Address" style={{ width: '400px' }} />
+</div>
+
+After that, you will see a popup as shown below. Note the string starting with 0x... followed by a copy icon button. You will need to copy this string and sign it in Neuron wallet.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep2.src} alt="Prepare to Sign" style={{ maxWidth: '600px' }} />
+</div>
+
+</Step>
+
+
+<Step>
+
+### Switch to Neuron Wallet and Copy the Address You Want to Bind
+
+First, let's find the CKB address in Neuron wallet that contains your Nervos DAO deposit.
+
+<Callout title="How to Find Your NervosDAO Address?" type="info">
+In Neuron wallet, go to the "Nervos DAO" tab, click on a deposit to view the transaction details:
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep3.src} alt="View Transaction Details" />
+</div>
+
+In the transaction details page under `Outputs`, there are 2 addresses. One is your Nervos DAO address (usually the first output), and the other is the change address. You can also identify the Nervos DAO address by the `Amount`. Click on the address to copy it:
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep4.src} alt="Copy Nervos DAO Address" />
+</div>
+
+</Callout>
+
+</Step>
+
+<Step>
+
+### Sign in Neuron Wallet
+
+Click "Tools" in the Neuron wallet menu, then select "Sign/Verify Message":
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep5.src} alt="Sign and Verify" style={{ maxWidth: '600px' }} />
+</div>
+
+- First, paste the Nervos DAO address you copied in the previous step into the address field;
+- Next, paste the `Signing Message` string you copied from the DAO platform in Step 3 into the message field;
+- Then click the `Sign` button and enter your Neuron wallet password to sign, proving that you own this address. After successful signing, you will see a signature string starting with 0x in the signature field.
+- Finally, copy this signature string from the signature field.
+</Step>
+
+<Step>
+
+### Paste the Signature String from Neuron Wallet to the DAO Platform
+
+Return to the DAO platform (the page opened in Step 3), paste the copied signature string into the `Signature` input field, then click the `Bind` button.
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep6.src} alt="Bind" style={{ maxWidth: '600px' }} />
+</div>
+
+</Step>
+
+<Step>
+
+### Complete Binding
+
+Click the bind button. At this point, you need to sign to prove your control over the Web5 DID. After signing, you will receive the following confirmation, completing the binding.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={bindNervosDaoAddressStep7.src} alt="Binding Successful" style={{ maxWidth: '400px' }} />
+</div>
+
+</Step>
+
+</Steps>
+
+## Effects After Binding
+
+After successful binding:
+
+- Your voting weight will automatically include the Nervos DAO deposit amount from your Neuron wallet
+- One Web5 DID can bind multiple CKB addresses
+- All Nervos DAO deposits from bound addresses will be counted toward your total voting weight
+
+## Important Notes
+
+- **One address can only be bound to one Web5 DID** - If an address has already been bound to another DID, it cannot be bound again
+- **Binding does not affect asset security** - The binding operation only associates addresses and will not transfer or lock your assets
+- **Voting whitelist timing** - After binding an address, it will only be included in the whitelist when the next proposal initiates voting
+
+## Next Steps
+
+After completing address binding, you have all the requirements to participate in DAO governance voting. You can:
+
+- Browse the current [proposal list](/en/docs/user-guide/voting/browse-proposals)
+- Learn about the [voting mechanism](/en/docs/meta-rule/voting-mechanism)

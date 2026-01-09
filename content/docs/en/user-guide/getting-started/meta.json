@@ -3,6 +3,7 @@
   "pages": [
     "wallet-setup",
     "deposit-nervos-dao",
-    "register-web5-did"
+    "register-web5-did",
+    "bind-nervosdao-address"
   ]
 }
