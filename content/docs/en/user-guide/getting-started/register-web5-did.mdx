@@ -3,25 +3,140 @@ title: Register Web5 DID
 description: How to register a Web5 DID for DAO participation
 ---
 
-## Register Web5 DID
+import step2 from './images/register-web5-did/step2.png';
+import step3 from './images/register-web5-did/step3.png';
+import step4 from './images/register-web5-did/step4.png';
+import step5 from './images/register-web5-did/step5.png';
+import step6 from './images/register-web5-did/step6.png';
+import step7 from './images/register-web5-did/step7.png';
+import step9 from './images/register-web5-did/step9.png';
+import step10 from './images/register-web5-did/step10.png';
+import step11 from './images/register-web5-did/step11.png';
 
-> **Note**: This page is under construction. Content will be added soon.
+## Prerequisites
 
-How to register a Web5 DID for DAO participation
+Before you begin, please ensure you have completed the following preparations:
 
-## Coming Soon
+- A CKB wallet installed and configured (such as JoyID or other compatible wallets)
+- At least 450 CKB in your wallet for on-chain storage when creating your Web5 DID. When you no longer need your Web5 DID, you can destroy it and the corresponding CKB will be refunded to your wallet.
 
-This section will include:
+## Registration Steps
 
-- Detailed explanations
-- Step-by-step guides
-- Code examples (where applicable)
-- Best practices
+### Step 1: Visit CCF DAO and Log In
 
-## Need Help?
+Visit the CCF DAO website 🔗: https://ccfdao.dev and click the **Login** button in the top right corner of the page.
 
-If you have questions about this topic, please:
+![Visit CCF DAO Homepage](./images/register-web5-did/step1.png)
 
-- Check the [FAQ](../faq) section
-- Visit our community forum
-- Open an issue on GitHub
+### Step 2: Choose Creation Method
+
+In the "Create Account" dialog that appears, you can see the benefits of creating a Web5 DID account.
+
+Click the **Connect Wallet to Create** button to start the creation process. If you already have a Web5 DID, you can click "Already have Web5 DID" to import it.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step2.src} alt="Create Account Dialog" style={{ maxWidth: '800px' }} />
+</div>
+
+### Step 3: Connect Wallet
+
+The system will prompt your wallet for connection authorization. After successful authorization, the page will display "Wallet Connected" status along with your wallet address.
+
+Once you confirm the wallet is connected successfully, click **Next** to continue.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step3.src} alt="Wallet Connected" style={{ maxWidth: '800px' }} />
+</div>
+
+### Step 4: Set Account Name
+
+In the "Set Name" step, enter your Web5 DID account name in the input field.
+
+The name can consist of numbers, letters, or the special character `-`. This name will become your exclusive domain prefix (e.g., if you enter `alice`, your domain will be `alice.web5.ccfdao.dev`).
+
+After setting the name, click **Next**.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step4.src} alt="Set Account Name" style={{ maxWidth: '800px' }} />
+</div>
+
+### Step 5: Complete On-Chain Storage
+
+In the "On-Chain Storage" step, you need to drag the planet icon on the left to the Nervos galaxy on the right to complete the on-chain storage operation.
+
+After authorization, your Web5 account data will be permanently stored on the blockchain and cannot be tampered with by third parties.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step5.src} alt="Drag Planet to Complete On-Chain Storage" style={{ maxWidth: '800px' }} />
+</div>
+
+### Step 6: Wait for On-Chain Confirmation
+
+After dragging, the system will generate a CKB on-chain transaction. You need to sign and confirm it in your wallet, then wait for the on-chain transaction confirmation.
+
+This process may take about 10-30 seconds. Please wait patiently during this time and **do not refresh the page**.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step6.src} alt="Waiting for On-Chain Confirmation" style={{ maxWidth: '800px' }} />
+</div>
+
+### Step 7: Creation Successful
+
+When you see the "Account Created Successfully!" message, your Web5 DID account has been successfully created and stored on-chain.
+
+The page will display your account information, including:
+- Account avatar
+- Account name
+- Exclusive domain (e.g., `alice.web5.ccfdao.dev`)
+- Associated wallet address
+
+Click **Enter Community** to start your DAO journey!
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step7.src} alt="Account Created Successfully" style={{ maxWidth: '800px' }} />
+</div>
+
+## View and Manage Your Web5 Identity
+
+### Access Profile Center
+
+After logging in, click your username in the top right corner of the page to access the profile center.
+
+Here you can view:
+- **Web5 Identity**: Your Decentralized Identity (DID) and Personal Data Storage (PDS) address
+- **Privacy Control**: Status of data encryption, anonymous browsing, data backup, and other settings
+- **Wallet & Nervos DAO**: Voting power, wallet balance, and other information
+
+![Profile Center Page](./images/register-web5-did/step8.png)
+
+### Export Web5 DID Information
+
+For account security and cross-device usage, we recommend exporting and safely storing your Web5 DID information.
+
+1. On the profile center page, click the **Web5 DID Info** button
+
+2. The system will ask you to set an 8-character password (composed of numbers or letters) to protect the exported file
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step9.src} alt="Set Export Password" style={{ maxWidth: '400px' }} />
+</div>
+
+3. After entering the password, click **Confirm**
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step10.src} alt="Confirm Password" style={{ maxWidth: '400px' }} />
+</div>
+
+4. Click **Export File** to download the file containing your Web5 DID and login key
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src={step11.src} alt="Export File" style={{ maxWidth: '400px' }} />
+</div>
+
+> ⚠️ **Important**: Please keep the exported file and password safe. If the key is leaked, your account is at risk of being stolen! The exported file can be used to log in on other devices or migrate to other websites that support Web5 technology.
+
+## Next Steps
+
+After completing Web5 DID registration, you can:
+
+- [Bind Neuron Wallet Address](../getting-started/bind-nervosdao-address)
