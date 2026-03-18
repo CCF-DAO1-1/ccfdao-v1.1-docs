@@ -8,7 +8,6 @@
     "governance-framework",
     "proposal-lifecycle",
     "voting-mechanism",
-    "fund-management",
-    "amendment-process"
+    "fund-management"
   ]
 }
