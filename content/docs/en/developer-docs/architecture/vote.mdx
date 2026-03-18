@@ -1,10 +1,10 @@
 ---
 title: Vote System
-description: Enables creation of votes with multiple candidates, time-bound voting periods, and cryptographic whitelist verification using Sparse Merkle Trees (SMT).
+description: Enables creation of votes with multiple candidates, time-bound voting periods, and cryptographic voter list verification using Sparse Merkle Trees (SMT).
 ---
 
 ## System Overview
-The Vote System provides a secure, on-chain voting mechanism for proposals. It allows users to create votes with multiple candidates, time-bound voting periods, and cryptographic whitelist verification using Sparse Merkle Trees (SMT).
+The Vote System provides a secure, on-chain voting mechanism for proposals. It allows users to create votes with multiple candidates, time-bound voting periods, and cryptographic voter list verification using Sparse Merkle Trees (SMT).
 
 
 ### Component Overview Diagram
@@ -16,8 +16,8 @@ graph TB
         VoteMetaCell["VoteMeta Cell<br/>(on-chain)"]
     end
     
-    subgraph "Whitelist Management"
-        WhitelistJSON["white_list.json"]
+    subgraph "Voter List Management"
+        VoterListJSON["voter_list.json"]
         SMTTool["smt executable"]
         SMTRoot["smt_root_hash"]
         SMTProofs["Individual Proofs"]
@@ -40,7 +40,7 @@ graph TB
     CreateVoteMeta --> VoteMetaCell
     VoteMetaCell --> CKBNetwork
     
-    WhitelistJSON --> SMTTool
+    VoterListJSON --> SMTTool
     SMTTool --> SMTRoot
     SMTTool --> SMTProofs
     
@@ -68,7 +68,7 @@ The `VoteMeta` structure is defined in Molecule schema and contains:
 
 | Field | Type | Purpose |
 |-------|------|---------|
-| `smt_root_hash` | `Byte32Opt` | Root hash of the Sparse Merkle Tree for voter whitelist |
+| `smt_root_hash` | `Byte32Opt` | Root hash of the Sparse Merkle Tree for voter list |
 | `candidates` | `StringVec` | Vector of candidate names as strings |
 | `start_time` | `Uint64` | Unix timestamp when voting period begins |
 | `end_time` | `Uint64` | Unix timestamp when voting period ends |
@@ -85,7 +85,7 @@ sequenceDiagram
     participant CreateMeta as create-vote-meta
     participant CKB as CKB Blockchain
     
-    Admin->>SMT: Provide white_list.json
+    Admin->>SMT: Provide voter_list.json
     SMT->>SMT: Build Sparse Merkle Tree
     SMT-->>Admin: smt_root_hash
     
@@ -137,7 +137,7 @@ classDiagram
 
 The `VoteProof` structure contains:
 - `lock_script_hash`: Hash of the voter's lock script (identifies the voter)
-- `smt_proof`: Cryptographic proof that this lock_script_hash is in the authorized voter whitelist
+- `smt_proof`: Cryptographic proof that this lock_script_hash is in the authorized voter list
 
 ### Voting Process Flow
 
@@ -207,20 +207,20 @@ Dependencies include:
 
 ---
 
-## SMT Whitelist Tool
+## SMT Voter List Tool
 
-The Sparse Merkle Tree (SMT) tool processes a voter whitelist and generates cryptographic proofs for efficient on-chain verification.
+The Sparse Merkle Tree (SMT) tool processes a voter list and generates cryptographic proofs for efficient on-chain verification.
 
 ### SMT Architecture
 
 ```mermaid
 graph LR
-    WhitelistJSON["white_list.json<br/>(lock_script_hashes)"]
+    VoterListJSON["voter_list.json<br/>(lock_script_hashes)"]
     SMTBuilder["smt executable"]
     SMTRoot["smt_root_hash<br/>(Byte32)"]
     Proofs["Individual Proofs<br/>(per lock_hash)"]
     
-    WhitelistJSON --> SMTBuilder
+    VoterListJSON --> SMTBuilder
     SMTBuilder --> SMTRoot
     SMTBuilder --> Proofs
     
@@ -228,11 +228,11 @@ graph LR
     Proofs --> VoteProof["VoteProof.smt_proof"]
 ```
 
-### Whitelist Processing
+### Voter List Processing
 
 The `smt` command-line tool:
 
-1. **Input**: Reads `white_list.json` containing array of authorized lock script hashes
+1. **Input**: Reads `voter_list.json` containing array of authorized lock script hashes
 2. **Processing**: Constructs a Sparse Merkle Tree from the lock hashes
 3. **Output**: 
    - Single `smt_root_hash` (32 bytes) - embedded in VoteMeta
@@ -240,7 +240,7 @@ The `smt` command-line tool:
 
 ### Proof Generation
 
-For each authorized voter in the whitelist, the SMT tool generates a unique membership proof. This proof allows on-chain verification that a given lock_script_hash is in the authorized set without revealing the entire whitelist.
+For each authorized voter in the voter list, the SMT tool generates a unique membership proof. This proof allows on-chain verification that a given lock_script_hash is in the authorized set without revealing the entire voter list.
 
 The proof is compact (variable length bytes) and can be verified efficiently on-chain by:
 1. Taking the voter's `lock_script_hash`
@@ -428,7 +428,7 @@ The Vote System is characterized by:
 
 1. **Stateless Operation**: No backend indexer required
 2. **On-chain Verification**: All validation via smart contracts
-3. **Privacy-Preserving**: SMT allows whitelist verification without revealing full list
+3. **Privacy-Preserving**: SMT allows voter list verification without revealing full list
 4. **Time-Bounded**: Explicit start and end times
 5. **Immutable Records**: Votes permanently recorded on blockchain
 
