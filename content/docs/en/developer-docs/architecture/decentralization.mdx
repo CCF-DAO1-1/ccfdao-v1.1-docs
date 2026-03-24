@@ -18,6 +18,7 @@ CCFDAO 1.1 is a community governance system built on the Web5 technology archite
 | PDS | https://github.com/web5fans/rsky | Personal Data Storage Service |
 | Web5 DID Indexer | https://github.com/web5fans/web5-indexer | DID indexing service |
 | DID CKB Contract | https://github.com/web5fans/did-ckb | On-chain DID smart contract |
+| Relayer| https://github.com/web5fans/indigo | Relayer service |
 
 **CCFDAO 1.1 Specific Services**:
 
@@ -27,6 +28,7 @@ CCFDAO 1.1 is a community governance system built on the Web5 technology archite
 | Frontend | https://github.com/CCF-DAO1-1/ckb-fund-dao-ui | User interface |
 | Address Bind Indexer | https://github.com/CCF-DAO1-1/web5-components/tree/main/address-bind/be | Address binding indexer |
 | Vote Indexer | https://github.com/web5fans/web5-indexer | Vote indexer (shares code with DID Indexer) |
+| NervosDao Indexer | https://github.com/web5fans/web5-indexer | NervosDao indexer (shares code with DID Indexer) |
 | Vote Contract | https://github.com/CCF-DAO1-1/ckb-dao-vote | On-chain voting smart contract |
 | Documentation | https://github.com/CCF-DAO1-1/ccfdao-v1.1-docs | This documentation repository |
 
@@ -105,7 +107,7 @@ The vote contract is designed for general-purpose use to support future property
 | `smt_root_hash` | Optional field | **Required**, represents the root hash of the SMT containing the eligible voter list |
 | `extra` | Optional field | **Required**, stores the hash of the proposal content |
 | Voting Options | Multiple choice (bitwise OR) | Single choice (0-Abstain, 1-Yes, 2-No), multiple selections considered invalid |
-| Time Fields | `start_time`/`end_time` | Fixed to 0, actual times computed off-chain; start time is VoteMeta transaction block time, end time is start plus fixed duration |
+| Time Fields | `start_time`/`end_time` | Fixed to 0, actual times computed off-chain; start time is VoteMeta transaction block time, end time is start plus fixed duration(42/18 Epoch) |
 
 ### Contract Verification Logic
 
@@ -129,7 +131,7 @@ Community concerns have focused on the collection and update mechanisms for the 
 
 ### Voter List Source
 
-In principle, the eligible voter list is straightforward: **the list of users who have staked CKB in Nervos DAO**, which already exists on the CKB chain.
+In principle, the eligible voter list is straightforward: **the list of users who have staked CKB in Nervos DAO**, which already on the CKB chain.
 
 ### Technical Limitations and Solutions
 
@@ -142,7 +144,7 @@ In principle, the eligible voter list is straightforward: **the list of users wh
 
 The voter list is filtered to "users who have staked in Nervos DAO AND have a Web5 DID" based on the following:
 
-1. **Participation Data**: For the DAO 1.1 proposal vote, fewer than 500 people participated—a tiny fraction of total stakers
+1. **Participation Data**: For the DAO 1.1 proposal vote, fewer than 500 people participated, representing a small fraction of total stakers
 2. **Technical Architecture Consistency**: DAO 1.1 uses Web5 technology; users without a DID cannot interact with the system
 3. **Data Transparency**: Whether a user has a DID is also on-chain data; this filter does not reduce transparency or trustworthiness
 
@@ -176,13 +178,20 @@ sequenceDiagram
 
 Although the entire voting process involves complex steps and rules, all data originates from the CKB chain, and the intermediate processing is purely mechanical data transformation with no subjective intervention. Community members can obtain data from the chain and, following the same steps and rules, will arrive at the same voting results.
 
+Verification process summary:
+* 1 - 5: Obtain information related to the vote.
+* 6 - 10: Verify the voter list.
+* 11 - 15: Verify the vote counting results.
+
 ### Detailed Verification Process
 
 #### 1. Locate the Voting Transaction
 
 Find any user who participated in the vote and examine their wallet transaction history for a voting transaction similar to [this one](https://explorer.app5.org/transaction/0x53886a927baa175e08e99345e52546a7be4570081189890308e736a7f3b883b9).
 
-Vote Cell identifier:
+Feature: Type CodeHash is `0x38716b429cb139405d32ff86a916827862b2fa819916894848d8460da8953afb`
+
+Example of a voting Cell:
 
 ```json
 {
@@ -201,7 +210,6 @@ Vote Cell identifier:
 }
 ```
 
-Type CodeHash: `0x38716b429cb139405d32ff86a916827862b2fa819916894848d8460da8953afb`
 
 #### 2. Get VoteMeta
 
@@ -237,16 +245,16 @@ Exclude:
 - `cellDep[0]`: Vote contract itself
 - `cellDep[2]`: secp256k1/blake160
 
-The remaining `cellDep[1]` is the VoteMeta dependency, whose outpoint points to the transaction that created VoteMeta.
+The remaining `cellDep[1]` is the VoteMeta dependency, whose outpoint points to the VoteMeta Cell.
 
 #### 3. Determine Voting Time Range
 
 - **Start Height**: Block height where VoteMeta transaction was included (example: 18,807,213)
 - **Epoch Representation**: 13801 463/1073
 - **End Epoch**: Start Epoch + 42 = 13843 463/1073
-- **End Height**: Corresponding block height (example: 18,861,255)
+- **End Height**: Corresponding block height (example: 18,861,258 Epoch Representation 13843 545/1263)
 
-> **Note**: CKB epoch length is not fixed; requires calculation and trial. Since epoch 13843 has epoch len 1263, convert the fractional part proportionally to 542/1263.
+> **Note**: CKB epoch length is not fixed; requires calculation and trial. Since epoch 13843 has epoch len 1263, convert the fractional part proportionally to 545/1263 (round up when not divisible).
 
 #### 4. Filter Vote Transactions
 
@@ -254,7 +262,9 @@ Filter all vote transactions within `[start height, end height]` by type.
 
 #### 5. Parse VoteMeta
 
-Deserialize using Molecule (structure reference: [vote.mol](https://github.com/CCF-DAO1-1/ckb-dao-vote/blob/main/contracts/ckb-dao-vote/molecules/vote.mol#L13)):
+Use Molecule to deserialize the data of the VoteMeta Cell.
+
+structure reference: [vote.mol](https://github.com/CCF-DAO1-1/ckb-dao-vote/blob/main/contracts/ckb-dao-vote/molecules/vote.mol#L13).
 
 ```
 0x9b0000001800000038000000670000006f000000770000006cbbcea30306f401f4f8adc963d60cc8670c4603e25329bc755df0cfbc22d9972f000000100000001b00000024000000070000004162737461696e05000000416772656507000000416761696e737400043101cb0035e900043101fd0035e920000000217a69d19c517685466796fa3f9180d29f4661686ff9c3490c8c1b1f88a1e151
@@ -284,9 +294,7 @@ The voter list update height is **the vote start height rounded down to the near
 
 > **Edge Case Handling**: If the vote start height is just slightly above a 10,000 multiple (e.g., 18,807,002), due to block confirmation time, the actual voter list used might be from the previous update height (18,790,000). When verifying, try both heights.
 
-Therefore, this vote's voter list is the list of addresses at **height 18,800,000** that:
-- Have a DID
-- Have staked CKB in Nervos DAO
+Therefore, this vote's voter list is updated at **height 18,800,000**.
 
 #### 7. Get DID User List
 
@@ -296,17 +304,51 @@ Query from the Web5 DID Indexer endpoint:
 https://did-indexer.bbs.fans/did-set?until_height=18800000
 ```
 
+Querying by block height according to the Voter List update
+
 > If concerned about indexer data trustworthiness, the community can run their own indexer or implement their own based on open-source code.
 
-#### 8. Query Stake Amounts
+#### 8. Query Address Bindings
 
-For each address in the DID list, query their stake amount in Nervos DAO:
-- Exclude addresses with zero stake
-- Remaining addresses form the voter list
+For each address in the DID user list, call the Address Bind Indexer's `by_to_at_height` (query by Voter List update height):
 
-> **Current Limitation**: Requires support for querying at specific heights. The new solution is building a Nervos DAO indexer.
+```bash
+curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah/18800000
+```
 
-#### 9. Verify SMT Root Hash
+Example response:
+
+```json
+[{"height":18800000, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah"}]
+```
+
+Create a mapping table of voters and their bound addresses:
+
+| DID Address | Bound Addresses |
+|--------|---------|
+| A | A1, A2, A3 |
+| B | B1, B2, C |
+| C | (pw lock) |
+
+#### 9. Query Stake Amount
+
+For the list of addresses that have DIDs, including their bound addresses (and pw lock), query the stake amount in the Nervos DAO indexer by Voter List update height one by one, and aggregate to the DID address according to the binding relationship.
+
+```bash
+curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=18800000&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah
+```
+
+Example response:
+
+```json
+{
+  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah: 100000
+}
+```
+
+Remove DID addresses with 0 stake; the remaining DID address list constitutes the voter list.
+
+#### 10. Verify SMT Root Hash
 
 After obtaining the voter list:
 1. Get each address's lock hash
@@ -314,18 +356,26 @@ After obtaining the voter list:
 3. Assemble into SMT
 4. Compare with the `smt_root_hash` from step 5
 
-#### 10. Query Address Bindings
+#### 11. Filter Invalid Votes
+Based on all votes obtained in step 4:
 
-For each address in the voter list, call the Address Bind Indexer's `by_to_at_height` (query at voting end height):
+| Order | Processing Rule | Description |
+|-------|-----------------|-------------|
+| 1 | Multiple Votes | Take only the last vote |
+| 2 | Multiple Selections | Considered invalid |
+
+#### 12. Query Address Bindings
+
+For each address with valid votes, call the Address Bind Indexer's `by_to_at_height` (query at voting end height):
 
 ```bash
-curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah/18861255
+curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah/18861258
 ```
 
 Example response:
 
 ```json
-[{"height":18861255, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah"}]
+[{"height":18861258, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah"}]
 ```
 
 Form a mapping table of voters and their bound addresses:
@@ -336,19 +386,34 @@ Form a mapping table of voters and their bound addresses:
 | B | B1, B2, C |
 | C | - |
 
-#### 11. Calculate Weights
+#### 13. Calculate Weights
 
-Query all addresses' weights (stake amounts) at the voting end height.
+For each address with valid votes, including their bound addresses (and pw lock), query the stake amount in the Nervos DAO indexer by voting end height one by one, and aggregate to the voting address according to the binding relationship.
 
-#### 12. Final Vote Count
+```bash
+curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=18861258&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah
+```
 
-Based on all votes obtained in step 4:
+Example response:
 
-| Order | Processing Rule | Description |
-|-------|-----------------|-------------|
-| 1 | Multiple Votes | Take only the last vote |
-| 2 | Multiple Selections | Considered invalid |
-| 3 | Binding Conflict | If a user votes independently while also bound to another address (like C bound to B in the example), B's weight does not include C's weight |
+```json
+{
+  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah: 100000
+}
+```
+
+#### 14. Filter Invalid Weights
+
+If a user votes independently while also bound to another address (like C bound to B in the example), B's weight does not include C's weight.
+
+#### 15. Final Vote Count
+
+Based on valid vote options and corresponding weights, calculate the final result:
+
+| Option | Weight |
+|-----|------|
+| Agree | 200000 |
+| Against | 100000 |
 
 ## Summary
 
