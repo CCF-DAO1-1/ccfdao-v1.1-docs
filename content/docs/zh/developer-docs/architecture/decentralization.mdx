@@ -169,9 +169,10 @@ graph TB
 
 #### 1. 定位投票交易
 
-找任意一个参与了投票的用户，查看其钱包交易历史，找到类似 [此交易](https://explorer.app5.org/transaction/0x53886a927baa175e08e99345e52546a7be4570081189890308e736a7f3b883b9) 的投票交易。
+找任意一个参与了投票的用户，查看其钱包交易历史，找到类似 [此交易](https://testnet.explorer.app5.org/transaction/0xb7dab41c637c2ceaf3d05a8f49513c840d4932263c1d480a56896f70ae249f5d) 的投票交易。
 
-特征是：Type CodeHash 为 `0x38716b429cb139405d32ff86a916827862b2fa819916894848d8460da8953afb`
+特征是：Type CodeHash testnet 为 `0xb140de2d7d1536cfdcb82da7520475edce5785dff90edae9073c1143d88f50c5`
+Type CodeHash mainnet 为 `0x38716b429cb139405d32ff86a916827862b2fa819916894848d8460da8953afb
 
 投票 Cell 示例：
 
@@ -181,13 +182,13 @@ graph TB
   "lock": {
     "codeHash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
     "hashType": "type",
-    "args": "0xfbd94b915f05d05f669e7f96c7290fbf26b93d96"
+    "args": "0xd7af41f049a29b292dcfa20130bbeabf8d4f268e"
   },
   "type": {
-    "codeHash": "0x38716b429cb139405d32ff86a916827862b2fa819916894848d8460da8953afb",
+    "codeHash": "0xb140de2d7d1536cfdcb82da7520475edce5785dff90edae9073c1143d88f50c5",
     "hashType": "type",
-    "args": "0x8594d2dbaa9b72f7bed5bd17ae50f16673bb782f"
-  },
+    "args": "0xc4b5934dbd90ad580c8177a59d404131556aabcb"
+  }
   "data": "0x02000000"
 }
 ```
@@ -201,21 +202,21 @@ graph TB
 [
   {
     "outPoint": {
-      "txHash": "0xd8cb3f3b109ab35e51cb0c849f2b66159e376e125c6b701d193a6a636eb3247d",
+      "txHash": "0x024ec56c1d2ad4940a96edfd5cfd736bdb0c7d7342da9e74d3033872bdb9cbc1",
       "index": "0x0"
     },
     "depType": "code"
   },
   {
     "outPoint": {
-      "txHash": "0x4c67178b3b0fb2ae88a360b81f03f4f34ef06253906b38dcfdb00ac2b2cf35f4",
+      "txHash": "0xd91c95b83597fb7bf741fc0b2245c656154b2f021f23416356b8819fc748442f",
       "index": "0x0"
     },
     "depType": "code"
   },
   {
     "outPoint": {
-      "txHash": "0x71a7ba8fc96349fea0ed3a5c47992e3b4084b031a42264a018e0072e8172e46c",
+      "txHash": "0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37",
       "index": "0x0"
     },
     "depType": "depGroup"
@@ -229,62 +230,80 @@ graph TB
 
 剩余 `cellDep[1]` 即为 VoteMeta 的依赖，其中的outpoint指向 VoteMeta Cell。
 
+投票 VoteMeta Cell 示例：
 
-#### 3. 确定投票时间范围
+```json
+{
+  "capacity": "0x50775d800",
+  "lock": {
+    "codeHash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+    "hashType": "type",
+    "args": "0xd7af41f049a29b292dcfa20130bbeabf8d4f268e"
+  }
+  "data": "0x9b0000001800000038000000670000006f0000007700000090f059af5b62d50ea64b8af5c105a7dbabb1e412a4ec0c78ebbe23b83001f5392f000000100000001b00000024000000070000004162737461696e05000000416772656507000000416761696e7374000000000000000000000000000000002000000042cbdb2e26a9d91d0d014507c3537d49e3ccfc52daadc3466a815ea9f3467d2c"
+}
+```
 
-- **开始高度**：创建 VoteMeta 交易所在高度（示例：18,807,213）
-- **Epoch 表示**：13801 463/1073
-- **结束 Epoch**：开始 Epoch + 42 = 13843 463/1073
-- **结束高度**：对应区块高度（示例：18,861,258  Epoch表示 13843 545/1263）
 
-> **注意**：CKB 的 epoch 长度不固定，需要一些计算和尝试。因为epoch 13843的epoch len是1263，分数部分等比转换为 545/1263(除不尽的时候向上取整)
-
-#### 4. 过滤投票交易
-
-根据 type 过滤出 `[开始高度, 结束高度]` 之间的所有投票交易。
-
-#### 5. 解析 VoteMeta
+#### 3. 解析 VoteMeta
 
 使用 Molecule 反序列化 VoteMeta Cell 的 data。
 
 结构参见 [vote.mol](https://github.com/CCF-DAO1-1/ckb-dao-vote/blob/main/contracts/ckb-dao-vote/molecules/vote.mol#L13)
 
-```
-0x9b0000001800000038000000670000006f000000770000006cbbcea30306f401f4f8adc963d60cc8670c4603e25329bc755df0cfbc22d9972f000000100000001b00000024000000070000004162737461696e05000000416772656507000000416761696e737400043101cb0035e900043101fd0035e920000000217a69d19c517685466796fa3f9180d29f4661686ff9c3490c8c1b1f88a1e151
-```
-
 反序列化结果：
 
 ```javascript
 VoteMeta {
-  smt_root_hash: '0x6cbbcea30306f401f4f8adc963d60cc8670c4603e25329bc755df0cfbc22d997',
+  smt_root_hash: '0x90f059af5b62d50ea64b8af5c105a7dbabb1e412a4ec0c78ebbe23b83001f539',
   candidates: [ 'Abstain', 'Agree', 'Against' ],
-  start_time: 16804338456501224448n,
-  end_time: 16804338671249589248n,
-  extra: '0x217a69d19c517685466796fa3f9180d29f4661686ff9c3490c8c1b1f88a1e151'
+  start_time: 0,
+  end_time: 0,
+  extra: '0x42cbdb2e26a9d91d0d014507c3537d49e3ccfc52daadc3466a815ea9f3467d2c'
 }
 ```
 
-其中 `smt_root_hash` 即本次投票的 voter list 组成的 SMT 的根哈希。
+- `smt_root_hash` 即本次投票的 voter list 组成的 SMT 的根哈希。
+- `candidates` 本次投票的选项
+
+
+#### 4. 确定投票时间范围
+
+- **开始高度**：创建 VoteMeta 交易所在高度（示例：20,554,834）
+- **Epoch 表示**：12790 1097/1800
+- **结束高度**：testnet 上的示例是开始高度 + 50个高度，对应区块高度（示例：20,554,884）
+
+mainnet 上按照治理规则的计算示例（项目立项投票间隔为7天，42个Epoch）：
+- **结束 Epoch**：开始 Epoch + 42 = 12832 1097/1800
+- **结束高度**：对应区块高度（示例：20,629,337  Epoch表示 12832 1097/1800）
+
+> **注意**：CKB mainnet 上的 epoch 长度不固定，有时需要将 Epoch index / Epoch length 部分等比转换(除不尽的时候向上取整)
+
+#### 5. 过滤投票交易
+
+根据 type 过滤出 `[开始高度, 结束高度]` 之间的所有投票交易。
 
 #### 6. 确定 Voter List 更新高度
 
 Voter list 的更新高度是**投票开始高度向下取整到 10,000 的倍数**：
 
 ```
-18,807,213 → 18,800,000
+20,554,834 → 20,550,000
 ```
 
-> **边界情况处理**：如果投票开始高度刚刚超过 10,000 的倍数一点点（如 18,800,002），由于上链需要时间，可能实际使用的是前一个更新高度（18,790,000）。验证时应两个高度都尝试执行步骤 7-10。
+因此，本次投票的 voter list 是在 **20,550,000 高度** 时更新的。
 
-因此，本次投票的 voter list 是在 **18,800,000 高度** 时更新的。
+> **边界情况处理**：如果投票开始高度刚刚超过 10,000 的倍数一点点（如 20,550,002），由于上链需要时间，有可能实际使用的是前一个更新高度（20,540,000）。验证时应两个高度 (20,540,000 / 20,550,000) 都应该尝试，继续执行步骤 7-10。
 
 #### 7. 获取 DID 用户列表
 
 从 Web5 DID Indexer 接口获取：
 
 ```
-https://did-indexer.bbs.fans/did-set?until_height=18800000
+testnet
+https://did-indexer.bbsfans.dev/did-set?until_height=20550000
+
+(mainnet url https://did-indexer.bbs.fans/did-set?until_height=)
 ```
 
 按 Voter List 更新高度查询
@@ -296,13 +315,13 @@ https://did-indexer.bbs.fans/did-set?until_height=18800000
 对 DID 用户列表 中的每个地址调用 Address Bind Indexer 的 `by_to_at_height`（按 Voter List 更新高度查询）：
 
 ```bash
-curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah/18800000
+curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r/20550000
 ```
 
 响应示例：
 
 ```json
-[{"height":18800000, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah"}]
+[{"height":20550000, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r"}]
 ```
 
 形成 voter 与其绑定地址的映射表：
@@ -318,14 +337,14 @@ curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xule
 按拥有 DID 的地址列表，包含与其绑定的地址（以及pw lock），逐个在 Nervos DAO indexer 中按 Voter List 更新高度查询质押数量，并按绑定关系汇总到DID地址。
 
 ```bash
-curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=18800000&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah
+curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=20550000&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r
 ```
 
 响应示例：
 
 ```json
 {
-  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah: 100000
+  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r: 200000
 }
 ```
 
@@ -352,13 +371,13 @@ curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=1880000
 有效投票中的每个地址调用 Address Bind Indexer 的 `by_to_at_height`（按投票结束高度查询）：
 
 ```bash
-curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah/18861258
+curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r/20554884
 ```
 
 响应示例：
 
 ```json
-[{"height":18861258, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah"}]
+[{"height":20554884, "tx_index":1, "from":"ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r"}]
 ```
 
 形成 voter 与其绑定地址的映射表：
@@ -374,14 +393,14 @@ curl -vv http://localhost:9533/by_to_at_height/ckt1qzda0cr08m85hc8jlnfp3zer7xule
 有效投票中的每个地址，包含与其绑定的地址（以及pw lock），逐个在 Nervos DAO indexer 中按投票结束高度查询质押数量，并按绑定关系汇总到投票地址。
 
 ```bash
-curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=18861258&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah
+curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=20554884&ckb_list=ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r
 ```
 
 响应示例：
 
 ```json
 {
-  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwu8lmjcalepgp5k6d4j0mtxwww68v9m6qz0q8ah: 100000
+  ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r: 200000
 }
 ```
 
@@ -396,7 +415,45 @@ curl -vv http://localhost:9533/query_dao_stake_until_height?until_height=1886125
 | 选项 | 权重 |
 |-----|------|
 | Agree | 200000 |
-| Against | 100000 |
+| Against | 0 |
+
+与Dao1.1页面上结果一致
+
+``` bash
+curl -s 'https://app.ccfdao.dev/api/timeline?uri=at:%2F%2Fdid:ckb:vy5cqmdzhmvxewq4bma74cut5nzumuce%2Fapp.dao.proposal%2F3mhwn5qbgqk2q' | jq -c '.data[0].message' | jq -r . | jq .
+
+{
+  "candidate_votes": [
+    0,
+    20000000000000,
+    0
+  ],
+  "result": 1,
+  "valid_vote_sum": 1,
+  "valid_votes": [
+    [],
+    [
+      {
+        "author": {
+          "$type": "app.actor.profile",
+          "ckb_addr": "ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r",
+          "created": "2026-03-25T17:44:33+08:00",
+          "did": "did:ckb:vy5cqmdzhmvxewq4bma74cut5nzumuce",
+          "displayName": "jler",
+          "handle": "jler.web5.ccfdao.dev"
+        },
+        "ckb_addr": "ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwh4aqlqjdznv5jmnazqycth64l348jdrscjrd2r",
+        "vote_index": 1,
+        "weight": 20000000000000
+      }
+    ],
+    []
+  ],
+  "valid_weight_sum": 20000000000000,
+  "vote_sum": 1
+}
+```
+
 
 ## 总结
 
